@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "677549103092",
+    "firebase_url": "https://dezdan---poomsae-score.firebaseio.com",
+    "project_id": "dezdan---poomsae-score",
+    "storage_bucket": "dezdan---poomsae-score.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677549103092:android:cfd4e5fa9843ea59304ba1",
+        "android_client_info": {
+          "package_name": "ariel.sam.teste_requisicao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677549103092-q89h6s9972fp5sc1nchcg9dgbinor2ak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl_d0BQTLvoKaAOisflC3PJ38gKofg0d8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677549103092-q89h6s9972fp5sc1nchcg9dgbinor2ak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
