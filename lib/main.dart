@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:teste_requisicao/Login/login_screen.dart';
 
-
+//5 --split-per-abi
+//flutter pub run flutter_launcher_icons:main
+//C:\Program Files\Android\Android Studio\jre\bin
+//keytool -genkey -v -keystore c:\Users\USER_NAME\key.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias key
 
 double widthGlobal;
 double heightGlobal;
@@ -49,12 +52,15 @@ void consultaDocumentosLogin() async {
   try {
     final databaseReference = Firestore.instance;
     if (tipoUsuarioGlobal == 'Administrador') {
+      print("csdsf");
       dbNomeAdms = new List();
       dbSenhasAdms = new List();
       databaseReference.collection("Administrador").orderBy('nome')
           .getDocuments()
           .then((QuerySnapshot snapshot) {
         snapshot.documents.forEach((f) {
+          print(f.data['nome']);
+          print(f.data['nome']);
           dbNomeAdms.add('${f.data['nome'].toString()}');
           dbSenhasAdms.add('${f.data['senha'].toString()}');
         });

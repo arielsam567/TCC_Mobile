@@ -45,17 +45,26 @@ class _PoomsaeBState extends State<PoomsaeB> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black45,
-          title: Text("Dezdan - Poomsae Score"),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(MediaQuery.of(context).size.height*0.08,),
+          child: AppBar(
+
+            backgroundColor: Colors.black45,
+            title: Text("Dezdan - Poomsae Score"),
+          ),
         ),
         body: Center(
+
             child: Stack(
               children: <Widget>[
                 Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(image: AssetImage("images/fundoVerde.jpeg"),
+                          fit: BoxFit.cover)
+                  ),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  color: Colors.white,
+                  //color: Colors.white,
                   child: Row(
                     children: <Widget>[
                       ColunaSlicer(),
@@ -78,7 +87,7 @@ class _PoomsaeBState extends State<PoomsaeB> {
       child: Column(
         children: <Widget>[
           WidgetDadosSuperioresEsquerdo(),
-          Text("POTÊNCIA - " + sliderA.toStringAsFixed(2)),
+          WidgetComFundo("POTÊNCIA - " + sliderA.toStringAsFixed(2)),
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: Colors.red[700],
@@ -114,7 +123,7 @@ class _PoomsaeBState extends State<PoomsaeB> {
             ),
           ),
           Divider(color: Colors.black,),
-          Text("RITMO - " + sliderB.toStringAsFixed(2)),
+          WidgetComFundo("RITMO - " + sliderB.toStringAsFixed(2)),
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: Colors.red[700],
@@ -150,7 +159,8 @@ class _PoomsaeBState extends State<PoomsaeB> {
             ),
           ),
           Divider(color: Colors.black,),
-          Text("EXPRESSÃO - " + sliderC.toStringAsFixed(2)),
+          WidgetComFundo("EXPRESSÃO - " + sliderC.toStringAsFixed(2)),
+
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: Colors.red[700],
@@ -206,7 +216,29 @@ class _PoomsaeBState extends State<PoomsaeB> {
             ),
             borderRadius: BorderRadius.circular(5),
           ),
-          child: NewAutoSizeText("ATLETA: " + nomeAtletaPoomsae + "  |  EQUIPE: "+equipeAtletaPoomsae,MediaQuery.of(context).size.width*0.5,1),
+          child: NewAutoSizeText("ATLETA: " + nomeAtletaPoomsae + "  |  EQUIPE: "+equipeAtletaPoomsae,MediaQuery.of(context).size.width*0.5,1,Colors.black),
+        ),
+
+      ),
+    );
+  }
+
+  WidgetComFundo(String texto){
+    return SizedBox(
+      child: Container(
+        //width: MediaQuery.of(context).size.width*.5,
+       // padding: EdgeInsets.fromLTRB(2, 8, 2, 16),
+        child: Container(
+          padding: EdgeInsets.fromLTRB(1,1,1,1),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Colors.white,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Text(texto,style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
         ),
 
       ),
@@ -220,23 +252,31 @@ class _PoomsaeBState extends State<PoomsaeB> {
       alignment: Alignment.center,
       child: Column(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-
-
-                  NewAutoSizeText("Nota Técnica: " + notaTecnica.toStringAsFixed(2)
-                  +"\nNota Ritmo: " + sliderB.toStringAsFixed(2)
-                  +"\nNota Potência: " +sliderA.toStringAsFixed(2)
-                  +"\nNota Expressão: "+ sliderC.toStringAsFixed(2),MediaQuery.of(context).size.width*0.3,4),
-                ],
+          Container(
+            padding: EdgeInsets.fromLTRB(1,1,1,1),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.white,
+                width: 1,
               ),
-            ],
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+
+
+                NewAutoSizeText("Nota Técnica: " + notaTecnica.toStringAsFixed(2)
+                    +"\nNota Ritmo: " + sliderB.toStringAsFixed(2)
+                    +"\nNota Potência: " +sliderA.toStringAsFixed(2)
+                    +"\nNota Expressão: "+ sliderC.toStringAsFixed(2),MediaQuery.of(context).size.width*0.25,4,Colors.black),
+                NewAutoSizeText("Nota Final: "+ media.toStringAsFixed(2),MediaQuery.of(context).size.width*0.3,1,Colors.black),
+
+              ],
+            ),
           ),
-          NewAutoSizeText("Nota Final: "+ media.toStringAsFixed(2),MediaQuery.of(context).size.width*0.35,1),
           Padding(
             padding: const EdgeInsets.fromLTRB(0,20,0,0),
             child: RaisedButton(
@@ -251,14 +291,14 @@ class _PoomsaeBState extends State<PoomsaeB> {
               padding: EdgeInsets.fromLTRB(0,00,0,0),
               child: Ink(
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [Color.fromRGBO(161,255,121,1), Color.fromRGBO(182,255,135,1)],
+                    gradient: LinearGradient(colors: [Color.fromRGBO(0,0,255,1), Color.fromRGBO(255,0,0,1)],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
                     borderRadius: BorderRadius.circular(30.0)
                 ),
                 child: Container(
-                  constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.22, minHeight: MediaQuery.of(context).size.height*0.13),
+                  constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width*0.2, minHeight: MediaQuery.of(context).size.height*0.13),
                   alignment: Alignment.center,
                   child: AutoSizeText(
                     "ENVIAR NOTA",
@@ -280,16 +320,16 @@ class _PoomsaeBState extends State<PoomsaeB> {
   }
 
   // ignore: non_constant_identifier_names
-  NewAutoSizeText(String texto,double tamanho, int linhas){
+  NewAutoSizeText(String texto,double tamanho, int linhas, Color cor){
     return Container(
       width: tamanho,
       child: AutoSizeText(
         texto,
         maxLines: linhas,
-        maxFontSize: 40,
+        maxFontSize: 20,
         minFontSize: 10,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold,color: Colors.black),
+        style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold,color: cor),
       ),
     );
   }

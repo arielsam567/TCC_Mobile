@@ -97,8 +97,12 @@ class _PoomsaeAState extends State<PoomsaeA> {
                 Row(
                   children: <Widget>[
                     Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(image: AssetImage("images/fundoVerde.jpeg"),
+                              fit: BoxFit.cover)
+                      ),
                       width: MediaQuery.of(context).size.width,
-                      color: Colors.white,
+                     // color: Colors.white,
                       child: Column(
                         children: <Widget>[
                           WidgetDadosSuperioresEsquerdo(),

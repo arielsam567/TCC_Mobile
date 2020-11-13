@@ -49,7 +49,7 @@ class StaggerAnimation extends StatelessWidget {
             height: 60.0,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.black54,
                 borderRadius: BorderRadius.all(Radius.circular(30))
             ),
             child: _buildInside(context),
@@ -58,7 +58,7 @@ class StaggerAnimation extends StatelessWidget {
             width: buttonZoomOut.value,
             height: buttonZoomOut.value,
             decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.black54,
                 shape: buttonZoomOut.value <500 ?
                 BoxShape.circle : BoxShape.rectangle
             ),

@@ -45,6 +45,7 @@ class _AtualizaCompetidorState extends State<AtualizaCompetidor> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black54,
         title: Text('Dezdan - Poomsae Score'),
       ),
       body: Container(
@@ -110,7 +111,7 @@ class _AtualizaCompetidorState extends State<AtualizaCompetidor> {
                 padding: EdgeInsets.all(0.0),
                 child: Ink(
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [Color.fromRGBO(161,255,121,1), Color.fromRGBO(182,255,135,1)],
+                      gradient: LinearGradient(colors: [Color.fromRGBO(255,0,0,1), Color.fromRGBO(255,0,0,1)],
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                       ),
@@ -149,7 +150,7 @@ class _AtualizaCompetidorState extends State<AtualizaCompetidor> {
                 padding: EdgeInsets.all(0.0),
                 child: Ink(
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [Color.fromRGBO(161,255,121,1), Color.fromRGBO(182,255,135,1)],
+                      gradient: LinearGradient(colors: [Color.fromRGBO(0,0,255,1), Color.fromRGBO(0,0,255,1)],
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                       ),

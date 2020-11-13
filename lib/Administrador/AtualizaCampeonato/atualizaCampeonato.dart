@@ -37,7 +37,7 @@ class _AtualizaCampeonatoState extends State<AtualizaCampeonato> with TickerProv
 
   List<String>  _dbIdArbitro = new List();
 
-  static const List<IconData> icons = const [ Icons.person_pin, Icons.person_add, Icons.exit_to_app ];
+  static const List<IconData> icons = const [ Icons.person_pin, Icons.exit_to_app ];
   AnimationController _controller;
 
 
@@ -59,6 +59,7 @@ class _AtualizaCampeonatoState extends State<AtualizaCampeonato> with TickerProv
     Color foregroundColor = Theme.of(context).accentColor;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black54,
         title: Text('Dezdan - Poomsae Score'),
       ),
       floatingActionButton: new Column(
@@ -84,16 +85,12 @@ class _AtualizaCampeonatoState extends State<AtualizaCampeonato> with TickerProv
                 child: new Icon(icons[index], color: foregroundColor),
                 onPressed: () {
                   print([index]);
-                  if(index == 1 ){
-                    Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => new AddCompetidor(_controllerIdentificadorCampeonato.text,idCampeonato))
-                    );
-                  }else if(index == 0 ){
+                   if(index == 0 ){
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => new CompetidoresScreen(_controllerIdentificadorCampeonato.text)),
                     );
-                  }else if(index == 2 ){
+                  }else if(index == 1 ){
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => new AdmScreen()),
@@ -383,7 +380,7 @@ class _AtualizaCampeonatoState extends State<AtualizaCampeonato> with TickerProv
                 padding: EdgeInsets.all(0.0),
                 child: Ink(
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [Color.fromRGBO(161,255,121,1), Color.fromRGBO(182,255,135,1)],
+                      gradient: LinearGradient(colors: [Color.fromRGBO(255,0,0,1), Color.fromRGBO(255,0,0,1)],
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                       ),
@@ -421,7 +418,7 @@ class _AtualizaCampeonatoState extends State<AtualizaCampeonato> with TickerProv
                 padding: EdgeInsets.all(0.0),
                 child: Ink(
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [Color.fromRGBO(161,255,121,1), Color.fromRGBO(182,255,135,1)],
+                      gradient: LinearGradient(colors: [Color.fromRGBO(0,0,255,1), Color.fromRGBO(0,0,255,1)],
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                       ),
