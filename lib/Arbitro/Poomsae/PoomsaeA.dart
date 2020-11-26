@@ -74,9 +74,14 @@ class _PoomsaeAState extends State<PoomsaeA> {
           actions: <Widget>[
             IconButton(
               icon: flagMovel ? Icon(Icons.lock_open) :  Icon(Icons.lock_outline) ,
-              onPressed: (){},
+              onPressed: (){
+                setState(() {
+                  flagMovel = !flagMovel;
+                });
+              },
             ),
             IconButton(
+              padding: EdgeInsets.fromLTRB(8, 8, 98, 8),
               icon: Icon(Icons.arrow_forward),
               onPressed: () {
                 Navigator.of(context).pushReplacement(
@@ -304,11 +309,35 @@ class _PoomsaeAState extends State<PoomsaeA> {
             child: Column(children: <Widget>[
               Container(
                   padding: EdgeInsets.fromLTRB(4, 8, 4, 0),
+                  decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    gradient: new LinearGradient(
+                        colors: [
+                          const Color.fromRGBO(255, 255, 255, 1.0),
+                          const Color.fromRGBO(191, 191, 191, 1.0),
+                        ],
+                        begin: const FractionalOffset(0.0, 0.0),
+                        end: const FractionalOffset(1.0, 0.0),
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                  ),
                   alignment: Alignment.topCenter,
                   width:MediaQuery.of(context).size.width*0.3 ,
-                  child: AutoSizeText("NOTA TÉCNICA: ",maxLines: 1,minFontSize: 8, style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),)),
+                  child: AutoSizeText("NOTA TÉCNICA:",maxLines:1 ,minFontSize: 8, style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),)),
               Container(
                   padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
+                  decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    gradient: new LinearGradient(
+                        colors: [
+                          const Color.fromRGBO(255, 255, 255, 1.0),
+                          const Color.fromRGBO(191, 191, 191, 1.0),
+                        ],
+                        begin: const FractionalOffset(0.0, 0.0),
+                        end: const FractionalOffset(1.0, 0.0),
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                  ),
                   alignment: Alignment.topCenter,
                   width:MediaQuery.of(context).size.width*0.3 ,
                   child: AutoSizeText(notaTecnica.toStringAsFixed(2),maxLines: 1,minFontSize: 8, style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold),)),

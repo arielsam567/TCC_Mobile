@@ -11,9 +11,9 @@ import 'package:teste_requisicao/Login/login_screen.dart';
 double widthGlobal;
 double heightGlobal;
 
-String nomeUsuarioGlobal = 'MESARIO';
-String senhaUsuarioGlobal = 'MESARIO55';
-String campeonatoGlobal = 'CAMP34';
+String nomeUsuarioGlobal = '';
+String senhaUsuarioGlobal = '';
+String campeonatoGlobal = '';
 String tipoUsuarioGlobal = '';
 String avisoErro = '';
 

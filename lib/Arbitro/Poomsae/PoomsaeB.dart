@@ -93,11 +93,11 @@ class _PoomsaeBState extends State<PoomsaeB> {
               activeTrackColor: Colors.red[700],
               inactiveTrackColor: Colors.red[100],
               trackShape: RoundedRectSliderTrackShape(),
-              trackHeight: 4.0,
-              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+              trackHeight: 16.0,
+              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 18.0),
               thumbColor: Colors.redAccent,
               overlayColor: Colors.red.withAlpha(32),
-              overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+              overlayShape: RoundSliderOverlayShape(overlayRadius: 24.0),
               tickMarkShape: RoundSliderTickMarkShape(),
               activeTickMarkColor: Colors.red[700],
               inactiveTickMarkColor: Colors.red[100],
@@ -129,11 +129,11 @@ class _PoomsaeBState extends State<PoomsaeB> {
               activeTrackColor: Colors.red[700],
               inactiveTrackColor: Colors.red[100],
               trackShape: RoundedRectSliderTrackShape(),
-              trackHeight: 4.0,
-              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+              trackHeight: 16.0,
+              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 18.0),
               thumbColor: Colors.redAccent,
               overlayColor: Colors.red.withAlpha(32),
-              overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+              overlayShape: RoundSliderOverlayShape(overlayRadius: 24.0),
               tickMarkShape: RoundSliderTickMarkShape(),
               activeTickMarkColor: Colors.red[700],
               inactiveTickMarkColor: Colors.red[100],
@@ -160,17 +160,16 @@ class _PoomsaeBState extends State<PoomsaeB> {
           ),
           Divider(color: Colors.black,),
           WidgetComFundo("EXPRESSÃO - " + sliderC.toStringAsFixed(2)),
-
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: Colors.red[700],
               inactiveTrackColor: Colors.red[100],
               trackShape: RoundedRectSliderTrackShape(),
-              trackHeight: 4.0,
-              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+              trackHeight: 16.0,
+              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 18.0),
               thumbColor: Colors.redAccent,
               overlayColor: Colors.red.withAlpha(32),
-              overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+              overlayShape: RoundSliderOverlayShape(overlayRadius: 24.0),
               tickMarkShape: RoundSliderTickMarkShape(),
               activeTickMarkColor: Colors.red[700],
               inactiveTickMarkColor: Colors.red[100],
@@ -205,16 +204,15 @@ class _PoomsaeBState extends State<PoomsaeB> {
     return SizedBox(
       child: Container(
         //width: MediaQuery.of(context).size.width*.5,
-        padding: EdgeInsets.fromLTRB(2, 8, 2, 16),
+        padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
         child: Container(
-          padding: EdgeInsets.fromLTRB(4, 4, 4, 4),
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(191, 191, 191, 1),
+          decoration: BoxDecoration(/**/
+            color: Color.fromRGBO(255, 255, 255, 1),
             border: Border.all(
-              color: Color.fromRGBO(191, 191, 191, 1),
+              color: Color.fromRGBO(255, 255, 255, 1),
               width: 1,
             ),
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(3),
           ),
           child: NewAutoSizeText("ATLETA: " + nomeAtletaPoomsae + "  |  EQUIPE: "+equipeAtletaPoomsae,MediaQuery.of(context).size.width*0.5,1,Colors.black),
         ),
@@ -223,6 +221,7 @@ class _PoomsaeBState extends State<PoomsaeB> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   WidgetComFundo(String texto){
     return SizedBox(
       child: Container(

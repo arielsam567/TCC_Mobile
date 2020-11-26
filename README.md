@@ -4,5 +4,6 @@ App para avaliação de atleta no Poomsae
 
 ## Getting Started
 
-Versão atual: 1.0.1
-N versao: 3
+Versão atual: 1.0.2
+
+N versão: 4
