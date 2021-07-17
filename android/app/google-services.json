@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "677549103092",
-    "firebase_url": "https://dezdan---poomsae-score.firebaseio.com",
-    "project_id": "dezdan---poomsae-score",
-    "storage_bucket": "dezdan---poomsae-score.appspot.com"
+    "project_number": "417615437183",
+    "project_id": "tcc-ariel",
+    "storage_bucket": "tcc-ariel.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:677549103092:android:cfd4e5fa9843ea59304ba1",
+        "mobilesdk_app_id": "1:417615437183:android:1b8477db12159ff0678e4a",
         "android_client_info": {
-          "package_name": "ariel.sam.teste_requisicao"
+          "package_name": "app.tcc_ariel.com"
         }
       },
       "oauth_client": [
         {
-          "client_id": "677549103092-q89h6s9972fp5sc1nchcg9dgbinor2ak.apps.googleusercontent.com",
+          "client_id": "417615437183-6sqjupp57vv2ligar3hacnppop9c7ujp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDl_d0BQTLvoKaAOisflC3PJ38gKofg0d8"
+          "current_key": "AIzaSyASn1mbu5DmPunIaHNVo9p5G8aYtxjNO5c"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "677549103092-q89h6s9972fp5sc1nchcg9dgbinor2ak.apps.googleusercontent.com",
+              "client_id": "417615437183-6sqjupp57vv2ligar3hacnppop9c7ujp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

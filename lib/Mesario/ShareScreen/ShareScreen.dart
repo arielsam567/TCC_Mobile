@@ -577,12 +577,6 @@ class _ShareScreenState extends State<ShareScreen>  with SingleTickerProviderSta
         print(contador);}
 
       setState(() {
-        _notaFinalAtual;
-        _n1arb1;_n2arb1;_n3arb1;_n4arb1;
-        _n1arb2; _n2arb2;_n3arb2; _n4arb2;
-        _n1arb3; _n2arb3;_n3arb3; _n4arb3;
-        _n1arb4; _n2arb4;_n3arb4; _n4arb4;
-        _n1arb5; _n2arb5;_n3arb5; _n4arb5;
       });
 
   });

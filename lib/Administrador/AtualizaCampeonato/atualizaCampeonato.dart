@@ -1,12 +1,13 @@
+import 'dart:math' as math;
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:teste_requisicao/Administrador/AddCompetidor/addCompetidor.dart';
-import 'package:teste_requisicao/Administrador/ListaCompetidores/CompetidoresScreen.dart';
+import 'package:tcc_mobile/Administrador/ListaCompetidores/CompetidoresScreen.dart';
+
 import '../AdmScreen.dart';
-import 'dart:math' as math;
 
 String idCampeonato;
 
@@ -85,7 +86,7 @@ class _AtualizaCampeonatoState extends State<AtualizaCampeonato> with TickerProv
                 child: new Icon(icons[index], color: foregroundColor),
                 onPressed: () {
                   print([index]);
-                   if(index == 0 ){
+                  if(index == 0 ){
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => new CompetidoresScreen(_controllerIdentificadorCampeonato.text)),

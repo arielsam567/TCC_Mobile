@@ -1,9 +1,3 @@
-# Dezdan - Poomsae Score
+# TCC - APP MOBILE
 
-App para avaliação de atleta no Poomsae
-
-## Getting Started
-
-Versão atual: 1.0.2
-
-N versão: 4
+Ariel Sam

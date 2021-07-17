@@ -5,7 +5,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:teste_requisicao/Administrador/AtualizaCampeonato/atualizaCampeonato.dart';
+import 'package:tcc_mobile/Administrador/AtualizaCampeonato/atualizaCampeonato.dart';
 
 String identificadorCampeonato;
 String idCampeonato;

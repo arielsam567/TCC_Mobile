@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:teste_requisicao/Arbitro/Arbitro.dart';
+import 'package:tcc_mobile/Arbitro/Arbitro.dart';
 import '../../main.dart';
 
 String nomeAtletaPoomsae;

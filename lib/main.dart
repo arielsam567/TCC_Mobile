@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:teste_requisicao/Login/login_screen.dart';
+import 'package:tcc_mobile/Login/login_screen.dart';
 
 //5 --split-per-abi
 //flutter pub run flutter_launcher_icons:main

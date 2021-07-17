@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:teste_requisicao/Administrador/AdmScreen.dart';
-import 'package:teste_requisicao/Login/widgets/form_container.dart';
-import 'package:teste_requisicao/Mesario/MesarioScreen.dart';
+import 'package:tcc_mobile/Administrador/AdmScreen.dart';
+import 'package:tcc_mobile/Login/widgets/form_container.dart';
+import 'package:tcc_mobile/Mesario/MesarioScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../Arbitro/Arbitro.dart';
 import '../main.dart';

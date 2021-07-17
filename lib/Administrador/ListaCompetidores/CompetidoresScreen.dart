@@ -2,9 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
-import 'package:teste_requisicao/Administrador/AtualizaCompetidor/atualizaCompetidor.dart';
-import 'dart:math' as math;
+import 'package:tcc_mobile/Administrador/AtualizaCompetidor/atualizaCompetidor.dart';
 
 
 String identificadorCampeonato;
@@ -27,8 +25,8 @@ class _CompetidoresScreenState extends State<CompetidoresScreen>  with TickerPro
   List<String>  _dbGraduacaoCompetidor;
   List<String> imagePaths = [];
 
-  static const List<IconData> icons = const [Icons.share ];
-  AnimationController _controller;
+  //static const List<IconData> icons = const [Icons.share ];
+  //AnimationController _controller;
 
 
 
@@ -45,8 +43,6 @@ class _CompetidoresScreenState extends State<CompetidoresScreen>  with TickerPro
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = Theme.of(context).cardColor;
-    Color foregroundColor = Theme.of(context).accentColor;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black54,
@@ -192,10 +188,10 @@ class _CompetidoresScreenState extends State<CompetidoresScreen>  with TickerPro
     }
   }
 
-  _onShare(BuildContext context) async {
-    Share.share('Some text here',
-        subject: 'Update the coordinate!',
-        sharePositionOrigin: Rect.fromLTWH(0, 0, 50, 50)
-    );
-  }
+// _onShare(BuildContext context) async {
+//   Share.share('Some text here',
+//       subject: 'Update the coordinate!',
+//       sharePositionOrigin: Rect.fromLTWH(0, 0, 50, 50)
+//   );
+// }
 }

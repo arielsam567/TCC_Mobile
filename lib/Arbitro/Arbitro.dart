@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:teste_requisicao/Login/login_screen.dart';
+import 'package:tcc_mobile/Login/login_screen.dart';
 import '../main.dart';
 import 'Poomsae/PoomsaeA.dart';
 

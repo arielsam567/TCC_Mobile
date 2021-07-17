@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:teste_requisicao/Administrador/AdmScreen.dart';
+import 'package:tcc_mobile/Administrador/AdmScreen.dart';
 
 List<String> idsExistentes = new List();
 class AddCampeonato extends StatefulWidget {

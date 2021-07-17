@@ -4,9 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:teste_requisicao/Login/login_screen.dart';
-import 'package:teste_requisicao/Mesario/AtualizaCompetidor/atualizaCompetidorMesario.dart';
-import 'package:teste_requisicao/main.dart';
+import 'package:tcc_mobile/Login/login_screen.dart';
+import 'package:tcc_mobile/Mesario/AtualizaCompetidor/atualizaCompetidorMesario.dart';
+import 'package:tcc_mobile/main.dart';
 
 String identificadorCampeonato = campeonatoGlobal;
 String ordenador = 'nome';

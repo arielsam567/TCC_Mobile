@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:teste_requisicao/Administrador/AtualizaCampeonato/atualizaCampeonato.dart';
-import 'package:teste_requisicao/Login/login_screen.dart';
-import 'dart:math' as math;
-
-import 'addCampeonato/addCampeonato.dart';
+import 'package:tcc_mobile/Administrador/AtualizaCampeonato/atualizaCampeonato.dart';
+import 'package:tcc_mobile/Login/login_screen.dart';
 
 class AdmScreen extends StatefulWidget {
   @override
@@ -21,24 +18,22 @@ class _AdmScreenState extends State<AdmScreen> with TickerProviderStateMixin {
   List<String>  _dbUrlImgCampeonato;
   List<String>  _dbIdCampeonato;
 
-  static const List<IconData> icons = const [Icons.exit_to_app ];
-  AnimationController _controller;
+  // static const List<IconData> icons = const [Icons.exit_to_app ];
+  // AnimationController _controller;
 
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
     consultaDocumentosAdministrador();
-    _controller = new AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
+    // _controller = new AnimationController(
+    //   vsync: this,
+    //   duration: const Duration(milliseconds: 500),
+    // );
   }
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = Theme.of(context).cardColor;
-    Color foregroundColor = Theme.of(context).accentColor;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black54,

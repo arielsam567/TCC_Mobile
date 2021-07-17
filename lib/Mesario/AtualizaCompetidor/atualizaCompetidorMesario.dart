@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:teste_requisicao/Mesario/MesarioScreen.dart';
-import 'package:teste_requisicao/Mesario/ShareScreen/ShareScreen.dart';
+import 'package:tcc_mobile/Mesario/MesarioScreen.dart';
+import 'package:tcc_mobile/Mesario/ShareScreen/ShareScreen.dart';
 
 String _idCompetidor;
 String _identificadorCampeonato;
