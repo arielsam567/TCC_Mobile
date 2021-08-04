@@ -4,8 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_mobile/Login/login_screen.dart';
 
 
-double widthGlobal;
-double heightGlobal;
 
 String nomeUsuarioGlobal = '';
 String senhaUsuarioGlobal = '';

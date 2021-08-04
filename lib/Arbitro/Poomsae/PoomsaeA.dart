@@ -59,8 +59,8 @@ class _PoomsaeAState extends State<PoomsaeA> {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    offsetA = Offset(10,heightGlobal/4);
-    offsetB = Offset(heightGlobal*0.5,heightGlobal/4);
+    offsetA = Offset(10,MediaQuery.of(context).size.height/4);
+    offsetB = Offset(MediaQuery.of(context).size.height*0.5,MediaQuery.of(context).size.height/4);
   }
 
   @override

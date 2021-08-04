@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../main.dart';
 import '../login_screen.dart';
 
-GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 class FormContainer extends StatefulWidget {
 
@@ -13,7 +12,7 @@ class FormContainer extends StatefulWidget {
 }
 
 class FormContainerState extends State<FormContainer> {
-  String itemSelecionado = 'Árbitro';
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
    void initState(){
     super.initState();
@@ -33,7 +32,6 @@ class FormContainerState extends State<FormContainer> {
             returnCampoNome(),
             returnCampoSenha(),
             returnCampoCampeonato(),
-
           ],
         ),
       ),
@@ -207,7 +205,5 @@ class FormContainerState extends State<FormContainer> {
     await prefs.setString('campeonatoGlobal', dado);
     campeonatoGlobal = dado;
   }
-
-
 
 }

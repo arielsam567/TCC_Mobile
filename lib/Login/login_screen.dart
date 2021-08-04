@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tcc_mobile/Login/widgets/form_container.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../Arbitro/Arbitro.dart';
 import '../main.dart';
 import 'widgets/botao_entrar.dart';
@@ -25,8 +24,6 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    heightGlobal = MediaQuery.of(context).size.height;
-    widthGlobal = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
           decoration: BoxDecoration(
@@ -61,7 +58,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                           ],
                         ),
                       ),
-                      Text(avisoErro,style: TextStyle(color: Colors.red),textAlign: TextAlign.center,
+                      Text(
+                        avisoErro,
+                        style: TextStyle(color: Colors.red),
+                        textAlign: TextAlign.center,
                       ),
                       FlatButton(
                         padding: EdgeInsets.only(
