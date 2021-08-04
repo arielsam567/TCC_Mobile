@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../Arbitro/Arbitro.dart';
 import '../main.dart';
 import 'widgets/botao_entrar.dart';
-import 'widgets/botao_limpar.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -64,7 +63,24 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       ),
                       Text(avisoErro,style: TextStyle(color: Colors.red),textAlign: TextAlign.center,
                       ),
-                      SignUpButton(
+                      FlatButton(
+                        padding: EdgeInsets.only(
+                            top: 100,
+                            bottom: 10
+                        ),
+                        onPressed: (){
+                          controllerSenha.text = '';
+                          controllerNome.text = '';
+                        },
+                        child: Text(
+                          "LIMPAR",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                        ),
                       )
                     ],
                   ),
