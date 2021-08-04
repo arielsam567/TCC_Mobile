@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_mobile/Login/login_screen.dart';
 
-//5 --split-per-abi
-//flutter pub run flutter_launcher_icons:main
-//C:\Program Files\Android\Android Studio\jre\bin
-//keytool -genkey -v -keystore c:\Users\USER_NAME\key.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias key
 
 double widthGlobal;
 double heightGlobal;
@@ -14,18 +10,15 @@ double heightGlobal;
 String nomeUsuarioGlobal = '';
 String senhaUsuarioGlobal = '';
 String campeonatoGlobal = '';
-String tipoUsuarioGlobal = '';
-String avisoErro = '';
+String tipoUsuarioGlobal = 'Árbitro';
 
-List<String> dbNomeAdms = new List();
-List<String> dbSenhasAdms = new List();
 
-List<String> dbNomeArbitros = new List();
-List<String> dbSenhasArbitros = new List();
-List<String> dbIdArbitro= new List();
+
+
+String dbNomeArbitros;
+String dbSenhasArbitros;
+String dbIdArbitro;
 String valorArbitroGlobal;
-
-List<String> dbCampeonato = new List();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,52 +44,18 @@ class MyApp extends StatelessWidget {
 void consultaDocumentosLogin() async {
   try {
     final databaseReference = Firestore.instance;
-    if (tipoUsuarioGlobal == 'Administrador') {
-      print("csdsf");
-      dbNomeAdms = new List();
-      dbSenhasAdms = new List();
-      databaseReference.collection("Administrador").orderBy('nome')
-          .getDocuments()
-          .then((QuerySnapshot snapshot) {
-        snapshot.documents.forEach((f) {
-          print(f.data['nome']);
-          print(f.data['nome']);
-          dbNomeAdms.add('${f.data['nome'].toString()}');
-          dbSenhasAdms.add('${f.data['senha'].toString()}');
-        });
-      });
-    }
-
     if (tipoUsuarioGlobal == 'Árbitro') {
-      dbNomeArbitros = new List();
-      dbSenhasArbitros = new List();
-      dbIdArbitro = new List();
       databaseReference.collection("$campeonatoGlobal-Arbitros").getDocuments().then((
           QuerySnapshot snapshot) {
         snapshot.documents.forEach((f) {
           bool status = f.data['status'];
           print(status);
           if(!status) {
-            dbNomeArbitros.add('${f.data['nome'].toString()}');
-            dbSenhasArbitros.add('${f.data['senha'].toString()}');
-            dbIdArbitro.add('${f.data['id'].toString()}');
+            dbNomeArbitros = '${f.data['nome']}';
+            dbSenhasArbitros = '${f.data['senha']}';
+            dbIdArbitro = '${f.data['id']}';
           }
           //print(dbNomeArbitros);
-        });
-      });
-
-    }
-
-    if (tipoUsuarioGlobal == 'Mesario') {
-      dbNomeArbitros = new List();
-      dbSenhasArbitros = new List();
-      dbIdArbitro = new List();
-      databaseReference.collection("$campeonatoGlobal-Mesario").getDocuments().then((
-          QuerySnapshot snapshot) {
-        snapshot.documents.forEach((f) {
-          dbNomeArbitros.add('${f.data['nome'].toString()}');
-          dbSenhasArbitros.add('${f.data['senha'].toString()}');
-
         });
       });
 

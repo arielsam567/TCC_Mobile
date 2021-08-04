@@ -13,15 +13,13 @@ class FormContainer extends StatefulWidget {
 }
 
 class FormContainerState extends State<FormContainer> {
-  var _tipoUsuario =['Administrador','Árbitro', 'Mesario'];
-  String itemSelecionado = 'Administrador';
+  String itemSelecionado = 'Árbitro';
   @override
    void initState(){
     super.initState();
     controllerSenha.text = senhaUsuarioGlobal;
     controllerNome.text = nomeUsuarioGlobal;
     controllerEvento.text = campeonatoGlobal;
-    itemSelecionado = tipoUsuarioGlobal;
   }
 
   @override
@@ -32,7 +30,6 @@ class FormContainerState extends State<FormContainer> {
         key: formKey,
         child: Column(
           children: <Widget>[
-            returnCampoUsuario(),
             returnCampoNome(),
             returnCampoSenha(),
             returnCampoCampeonato(),
@@ -43,7 +40,7 @@ class FormContainerState extends State<FormContainer> {
     );
   }
 
-  returnCampoSenha(){
+  Widget returnCampoSenha(){
       return Container(
         padding: EdgeInsets.only(
           top: 10,
@@ -94,7 +91,7 @@ class FormContainerState extends State<FormContainer> {
       );
   }
 
-  returnCampoNome(){
+  Widget returnCampoNome(){
     return Container(
       padding: EdgeInsets.only(
         top: 10,
@@ -148,7 +145,7 @@ class FormContainerState extends State<FormContainer> {
     );
   }
 
-  returnCampoCampeonato(){
+  Widget returnCampoCampeonato(){
     return Container(
       padding: EdgeInsets.only(
         top: 10,
@@ -193,48 +190,6 @@ class FormContainerState extends State<FormContainer> {
     );
   }
 
-  returnCampoUsuario() {
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.only(
-              top: 5,
-              bottom:5,
-              left:10,
-              right: 10
-          ),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color:  Colors.black45,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: DropdownButton<String>(
-            style: TextStyle(
-              color: Colors.black54,
-              fontSize: 15,
-            ),
-            items : _tipoUsuario.map((String dropDownStringItem) {
-              return DropdownMenuItem<String>(
-                value: dropDownStringItem,
-                child: Text(dropDownStringItem),
-              );
-            }).toList(),
-            onChanged: ( String opcao) {
-              setState(() {
-                itemSelecionado =  opcao;
-                tipoUsuarioGlobal = opcao;
-              });
-              _salvaOpcao(opcao);
-            },
-            value: itemSelecionado,
-          ),
-        ),
-      ],
-    );
-  }
-
   void _salvaNome(String dado) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('nomeUsuarioGlobal', dado);
@@ -253,10 +208,6 @@ class FormContainerState extends State<FormContainer> {
     campeonatoGlobal = dado;
   }
 
-  void _salvaOpcao(String dado) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('tipoUsuarioGlobal', dado);
-    tipoUsuarioGlobal = dado;
-  }
+
 
 }

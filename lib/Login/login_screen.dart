@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tcc_mobile/Administrador/AdmScreen.dart';
 import 'package:tcc_mobile/Login/widgets/form_container.dart';
-import 'package:tcc_mobile/Mesario/MesarioScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../Arbitro/Arbitro.dart';
 import '../main.dart';
 import 'widgets/botao_entrar.dart';
@@ -23,18 +22,12 @@ TextEditingController controllerEvento=  new TextEditingController();
 
 class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin{
   AnimationController _animationController;
-
+  String avisoErro = '';
 
   @override
   Widget build(BuildContext context) {
-    heightGlobal = MediaQuery
-        .of(context)
-        .size
-        .height;
-    widthGlobal = MediaQuery
-        .of(context)
-        .size
-        .width;
+    heightGlobal = MediaQuery.of(context).size.height;
+    widthGlobal = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
           decoration: BoxDecoration(
@@ -136,68 +129,31 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
     _animationController.addStatusListener((status) {
       bool flag = false;
-      int acesso=0;
-      if(status == AnimationStatus.completed ){
-
-
-        if(tipoUsuarioGlobal == 'Administrador'){
-          int aux = 0;
-          dbNomeAdms.forEach((element) {
-            if(element == nomeUsuarioGlobal){
-              if(dbSenhasAdms[aux] == senhaUsuarioGlobal){
-                flag = true;
-                acesso = 1;
-              }
-            }
-            aux++;
-          });
-        }else if(tipoUsuarioGlobal == 'Árbitro'){
-          int aux = 0;
-          dbNomeArbitros.forEach((element) {
-            if(element == nomeUsuarioGlobal){
-              if(dbSenhasArbitros[aux] == senhaUsuarioGlobal){
-                valorArbitroGlobal = dbIdArbitro[aux];
-                flag = true;
-                acesso = 2;
-              }
-            }
-            aux++;
-          });
-        }else if(tipoUsuarioGlobal == 'Mesario'){
-          int aux = 0;
-          dbNomeArbitros.forEach((element) {
-            if(element == nomeUsuarioGlobal){
-              if(dbSenhasArbitros[aux] == senhaUsuarioGlobal){
-                flag = true;
-                acesso = 3;
-              }
-            }
-            aux++;
-          });
+      int acesso = 0;
+      if (status == AnimationStatus.completed) {
+        if (dbNomeArbitros == nomeUsuarioGlobal) {
+          if (dbSenhasArbitros == senhaUsuarioGlobal) {
+            valorArbitroGlobal = dbIdArbitro;
+            flag = true;
+            acesso = 2;
+          }
         }
-        if(flag && acesso ==1){
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => new AdmScreen())
-          );
-        }else if(flag && acesso ==2){
+
+
+        if (flag && acesso == 2) {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => new ArbitroScreen())
           );
-        }else if(flag && acesso == 3 ){
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => new MesarioScreen())
-          );
-        }else{
-          _animationController.duration = Duration(milliseconds: 500);
-          _animationController.reverse();
-          _animationController.duration = Duration(milliseconds: 3000);
-          setState(() {
-            avisoErro = 'Verifique seus dados e tente novamente';
-          });
         }
       }
-
-
+      else {
+        _animationController.duration = Duration(milliseconds: 500);
+        _animationController.reverse();
+        _animationController.duration = Duration(milliseconds: 3000);
+        setState(() {
+          avisoErro = 'Verifique seus dados e tente novamente';
+        });
+      }
     });
   }
 
@@ -207,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     super.dispose();
   }
 
-  _launchURL(var url) async {
+  void _launchURL(var url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -215,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     }
   }
 
-  retornaWpp() {
+  Widget retornaWpp() {
     return Container(
       padding: EdgeInsets.all(5.0),
       child: Material(
