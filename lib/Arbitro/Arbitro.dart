@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tcc_mobile/Config/strings.dart';
 import 'package:tcc_mobile/Login/login_screen.dart';
 import '../main.dart';
 import 'Poomsae/PoomsaeA.dart';
@@ -28,16 +29,11 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
 
   @override
   void initState() {
-    // TODO: implement initState
     consultaDocumentosCompetidores();
     super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-//    _controller = new AnimationController(
-//      vsync: this,
-//      duration: const Duration(milliseconds: 500),
-//    );
   }
 
   @override
@@ -45,7 +41,7 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black54,
-        title: Text('Dezdan - Poomsae Score'),
+        title: Text(Strings.appName),
         actions: <Widget>[
           IconButton(
 

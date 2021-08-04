@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tcc_mobile/Config/strings.dart';
 import 'package:tcc_mobile/main.dart';
 
 import 'PoomsaeB.dart';
@@ -70,7 +71,7 @@ class _PoomsaeAState extends State<PoomsaeA> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black45,
-          title: Text("Dezdan - Poomsae Score"),
+          title: Text(Strings.appName),
           actions: <Widget>[
             IconButton(
               icon: flagMovel ? Icon(Icons.lock_open) :  Icon(Icons.lock_outline) ,
@@ -110,8 +111,8 @@ class _PoomsaeAState extends State<PoomsaeA> {
                      // color: Colors.white,
                       child: Column(
                         children: <Widget>[
-                          WidgetDadosSuperioresEsquerdo(),
-                          WidgetNotaTecnica(),
+                          dadosSuperioresEsquerdo(),
+                          widgetNotaTecnica(),
                         ],
                       ),
                     ),
@@ -219,8 +220,7 @@ class _PoomsaeAState extends State<PoomsaeA> {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  WidgetDadosSuperioresEsquerdo(){
+  Widget dadosSuperioresEsquerdo(){
     return SizedBox(
       child: Container(
         padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
@@ -241,7 +241,7 @@ class _PoomsaeAState extends State<PoomsaeA> {
                 borderRadius: BorderRadius.circular(5),
               ),
               alignment: Alignment.center,
-              child: NewAutoSizeText("ÁRBRITO: " + nomeUsuarioGlobal.toUpperCase()+"  |  ATLETA: " + nomeAtletaPoomsae.toUpperCase() + "  |  EQUIPE: "+equipeAtletaPoomsae.toUpperCase(),MediaQuery.of(context).size.width*0.95),
+              child: newAutoSizeText("ÁRBRITO: " + nomeUsuarioGlobal.toUpperCase()+"  |  ATLETA: " + nomeAtletaPoomsae.toUpperCase() + "  |  EQUIPE: "+equipeAtletaPoomsae.toUpperCase(),MediaQuery.of(context).size.width*0.95),
             ),
 
           ],
@@ -251,8 +251,7 @@ class _PoomsaeAState extends State<PoomsaeA> {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  WidgetNotaTecnica() {
+  Widget widgetNotaTecnica() {
     return Container(
       padding: EdgeInsets.fromLTRB(8,16,8,16),
       alignment: Alignment.center,
@@ -384,8 +383,7 @@ class _PoomsaeAState extends State<PoomsaeA> {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  NewAutoSizeText(String texto,double tamanho){
+  Widget newAutoSizeText(String texto,double tamanho){
     return Container(
       width: tamanho,
       child: AutoSizeText(

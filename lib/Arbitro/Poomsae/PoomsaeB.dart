@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tcc_mobile/Arbitro/Arbitro.dart';
+import 'package:tcc_mobile/Config/strings.dart';
 import '../../main.dart';
 
 String nomeAtletaPoomsae;
@@ -50,7 +51,7 @@ class _PoomsaeBState extends State<PoomsaeB> {
           child: AppBar(
 
             backgroundColor: Colors.black45,
-            title: Text("Dezdan - Poomsae Score"),
+            title: Text(Strings.appName),
           ),
         ),
         body: Center(
