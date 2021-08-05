@@ -8,8 +8,6 @@ import 'package:tcc_mobile/Login/login_screen.dart';
 String nomeUsuarioGlobal = '';
 String senhaUsuarioGlobal = '';
 String campeonatoGlobal = '';
-String tipoUsuarioGlobal = 'Árbitro';
-
 
 
 
@@ -24,7 +22,6 @@ Future<void> main() async {
   nomeUsuarioGlobal =  (prefs.getString('nomeUsuarioGlobal') ??  '');
   senhaUsuarioGlobal =  (prefs.getString('senhaUsuarioGlobal') ??  '');
   campeonatoGlobal = (prefs.getString('campeonatoGlobal') ??  '');
-  tipoUsuarioGlobal = (prefs.getString('tipoUsuarioGlobal') ??  'Administrador');
   runApp(MyApp());
 }
 
@@ -39,25 +36,25 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void consultaDocumentosLogin() async {
+Future<void> consultaDocumentosLogin() async {
   try {
     final databaseReference = Firestore.instance;
-    if (tipoUsuarioGlobal == 'Árbitro') {
-      databaseReference.collection("$campeonatoGlobal-Arbitros").getDocuments().then((
-          QuerySnapshot snapshot) {
-        snapshot.documents.forEach((f) {
-          bool status = f.data['status'];
-          print(status);
-          if(!status) {
-            dbNomeArbitros = '${f.data['nome']}';
+    await databaseReference.collection("$campeonatoGlobal-Arbitros").getDocuments().then((
+        QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f) {
+        bool fechado = f.data['fechado'];
+
+        if(fechado == false) {
+          String auxName = '${f.data['nome']}';
+          if(auxName == nomeUsuarioGlobal) {
+            print('igual');
+            dbNomeArbitros = auxName;
             dbSenhasArbitros = '${f.data['senha']}';
             dbIdArbitro = '${f.data['id']}';
           }
-          //print(dbNomeArbitros);
-        });
+        }
       });
-
-    }
+    });
   }catch(e){
     print(e);
   }

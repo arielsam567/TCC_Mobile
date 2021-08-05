@@ -1,10 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:tcc_mobile/Config/strings.dart';
 import 'package:tcc_mobile/Login/login_screen.dart';
+import 'package:tcc_mobile/controller/home_controller.dart';
 import '../main.dart';
 import 'Poomsae/PoomsaeA.dart';
 
@@ -25,7 +28,6 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
   List<bool>  _dbFlagCompetidor;
   List<bool>  _dbAva1;
   bool _flag = false;
-//  AnimationController _controller;
 
   @override
   void initState() {
@@ -38,41 +40,44 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black54,
-        title: Text(Strings.appName),
-        actions: <Widget>[
-          IconButton(
-
-            icon: Icon(Icons.autorenew),
-            onPressed: () {
-              consultaDocumentosCompetidores();
-            },
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.exit_to_app),
-        backgroundColor: Colors.black54,
-        onPressed: () => {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => new LoginScreen()))
-        },
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage("images/loginFundo.jpg"),
-                fit: BoxFit.cover)
-        ),
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Center(
+    return ChangeNotifierProvider<HomeController>(
+      create: (context) => HomeController(),
+      child: Consumer<HomeController>(
+          builder: (BuildContext context, HomeController controller, _) {
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.black54,
+                title: Text(Strings.appName),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.autorenew),
+                    onPressed: () {
+                      consultaDocumentosCompetidores();
+                    },
+                  ),
+                ],
+              ),
+              floatingActionButton: FloatingActionButton(
+                child: Icon(Icons.exit_to_app),
+                backgroundColor: Colors.black54,
+                onPressed: () => {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => new LoginScreen()))
+                },
+              ),
+              body: DoubleBackToCloseApp(
+                snackBar: const SnackBar(
+                  content: Text('Toque novamente para sair do app'),
+                ),
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(image: AssetImage("images/loginFundo.jpg"),
+                          fit: BoxFit.cover)
+                  ),
+                  child: SingleChildScrollView(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
+                      children: [
                         Container(
                             padding: EdgeInsets.all(8),
                             child: AutoSizeText("Competidores",
@@ -80,24 +85,25 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
                               maxFontSize: 50,
                               minFontSize: 25,
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
                                   fontSize: 40),
                             )),
+                        listView(_dbNomeCompetidor),
                       ],
-                    )),
-              ],
-            ),
-            new Expanded(child:geradorListView(_dbNomeCompetidor)),
-          ],
-        ),
-      ), //center
+                    ),
+                  ),
+                ),
+              ), //center
+            );
+          }),
     );
   }
 
-  geradorListView(List<String> items) {
-
+  Widget listView(List<String> items) {
     return ListView.builder(
       itemCount: (items.length),
+      shrinkWrap: true,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.all(8.0),

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tcc_mobile/Login/widgets/form_container.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../Arbitro/Arbitro.dart';
-import '../main.dart';
-import 'widgets/botao_entrar.dart';
+
+import '../../main.dart';
+import '../Arbitro.dart';
+
+
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -21,6 +23,7 @@ TextEditingController controllerEvento=  new TextEditingController();
 class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin{
   AnimationController _animationController;
   String avisoErro = '';
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +66,54 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         style: TextStyle(color: Colors.red),
                         textAlign: TextAlign.center,
                       ),
+                      SizedBox(height: 20,),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                        child: FlatButton(
+                            color: Colors.grey,
+                            shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+                            onPressed: () async {
+                              setState(() {
+                                loading =true;
+                              });
+                              nomeUsuarioGlobal = controllerNome.text;
+                              senhaUsuarioGlobal = controllerSenha.text;
+                              campeonatoGlobal = controllerEvento.text;
+                              await consultaDocumentosLogin();
+                              verificaDadoParaLogin(context);
+                              setState(() {
+                                loading =false;
+                              });
+                            },
+                            child: loading ? Container(
+                              width: MediaQuery.of(context).size.width-80,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(vertical: 15),
+                              child: SizedBox(
+                                height: 25,
+                                width: 25,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    valueColor:
+                                    AlwaysStoppedAnimation<Color>(
+                                      Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ) :  Container(
+                              width: MediaQuery.of(context).size.width-80,
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                              child: Text('Acessar',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    letterSpacing: 0.5,
+                                    fontSize: 20
+                                ),),
+                            )
+                        ),
+                      ),
                       FlatButton(
                         padding: EdgeInsets.only(
                             top: 100,
@@ -84,9 +135,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       )
                     ],
                   ),
-                  StaggerAnimation(
-                    controller: _animationController.view,
-                  ),
+
                 ],
               ),
               Row(
@@ -133,9 +182,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
   @override
   void initState() {
-    super.initState();
     _animationController = AnimationController(
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 20),
       vsync: this,
     );
 
@@ -143,34 +191,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       DeviceOrientation.portraitUp,
     ]);
 
-    _animationController.addStatusListener((status) {
-      bool flag = false;
-      int acesso = 0;
-      if (status == AnimationStatus.completed) {
-        if (dbNomeArbitros == nomeUsuarioGlobal) {
-          if (dbSenhasArbitros == senhaUsuarioGlobal) {
-            valorArbitroGlobal = dbIdArbitro;
-            flag = true;
-            acesso = 2;
-          }
-        }
-
-
-        if (flag && acesso == 2) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => new ArbitroScreen())
-          );
-        }
-      }
-      else {
-        _animationController.duration = Duration(milliseconds: 500);
-        _animationController.reverse();
-        _animationController.duration = Duration(milliseconds: 3000);
-        setState(() {
-          avisoErro = 'Verifique seus dados e tente novamente';
-        });
-      }
-    });
+    super.initState();
   }
 
   @override
@@ -203,13 +224,18 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         ),
       ),);
   }
+
+  void verificaDadoParaLogin(BuildContext context) {
+    bool flag = true;
+    int acesso = 2;
+    if (dbNomeArbitros == nomeUsuarioGlobal) {
+      print('a');
+      valorArbitroGlobal = dbIdArbitro;
+    }
+    if (flag && acesso == 2) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new ArbitroScreen())
+      );
+    }
+  }
 }
-
-
-
-
-
-
-
-
-
