@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     return Scaffold(
       body: Container(
           decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage("images/loginFundo.jpg"),
+              image: DecorationImage(image: AssetImage("images/fundo2.png"),
                   fit: BoxFit.cover)
           ),
           child: ListView(
@@ -73,8 +73,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 50),
                         child: FlatButton(
-                            color: Colors.grey,
-                            shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+                            color: Colors.black,
+                            shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                             onPressed: () async {
                               await pressButtonToLogin();
                             },

@@ -16,6 +16,8 @@ dependencies:
   shared_preferences: any
   double_back_to_close_app: ^1.0.0
   provider: ^4.3.3
+  flutter_launcher_icons: ^0.8.0
+
 
   flutter:
     sdk: flutter
@@ -36,4 +38,4 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "images/bolaPoomsae.png"
+  image_path: "images/iconW.png"

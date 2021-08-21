@@ -77,7 +77,7 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
                 child: Container(
                   height: MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
-                      image: DecorationImage(image: AssetImage("images/loginFundo.jpg"),
+                      image: DecorationImage(image: AssetImage("images/fundo2.png"),
                           fit: BoxFit.cover)
                   ),
                   child: SingleChildScrollView(
@@ -85,7 +85,7 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
                       children: [
                         Container(
                             padding: EdgeInsets.all(8),
-                            child: AutoSizeText("Competidores",
+                            child: AutoSizeText("Combates",
                               maxLines: 1,
                               maxFontSize: 50,
                               minFontSize: 25,
