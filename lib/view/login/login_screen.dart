@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tcc_mobile/view/login/widgets/form_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tcc_mobile/config/config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
@@ -59,8 +60,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children : <Widget>[
                             Expanded(
-                              child: FormContainer(
-                              ),
+                              child: formContainer(),
                             ),
                           ],
                         ),
@@ -77,17 +77,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                             color: Colors.grey,
                             shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
                             onPressed: () async {
-                              setState(() {
-                                loading =true;
-                              });
-                              userGlobal.name = controllerNome.text;
-                              userGlobal.password = controllerSenha.text;
-                              userGlobal.campId = controllerEvento.text;
-                              await consultaDocumentosLogin();
-                              verificaDadoParaLogin(context);
-                              setState(() {
-                                loading =false;
-                              });
+                              await pressButtonToLogin();
                             },
                             child: loading ? Container(
                               width: MediaQuery.of(context).size.width-80,
@@ -139,14 +129,13 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       )
                     ],
                   ),
-
                 ],
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  retornaWpp(),
+                  wppIcon(),
                   Container(
                       padding: EdgeInsets.all(5.0),
                       child:Material(
@@ -196,6 +185,11 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     ]);
 
     super.initState();
+
+
+    controllerSenha.text = userGlobal.password;
+    controllerNome.text = userGlobal.name;
+    controllerEvento.text = userGlobal.campId;
   }
 
   @override
@@ -212,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     }
   }
 
-  Widget retornaWpp() {
+  Widget wppIcon() {
     return Container(
       padding: EdgeInsets.all(5.0),
       child: Material(
@@ -230,22 +224,18 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   }
 
   void verificaDadoParaLogin(BuildContext context) {
-    bool flag = true;
-    int acesso = 2;
     if (dbNomeArbitros == userGlobal.name) {
       userGlobal.userId = dbIdArbitro;
     }
-    if (flag && acesso == 2) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ArbitroScreen())
-      );
-    }
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => new ArbitroScreen())
+    );
   }
 
   Future<void> consultaDocumentosLogin() async {
     try {
       final databaseReference = Firestore.instance;
-      await databaseReference.collection("${userGlobal.campId}-Arbitros").getDocuments().then((
+      await databaseReference.collection("${userGlobal.campId}${Config.arbitro}").getDocuments().then((
           QuerySnapshot snapshot) {
         snapshot.documents.forEach((f) {
           bool fechado = f.data['fechado'];
@@ -264,6 +254,213 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       print(e);
     }
   }
+
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  Widget returnCampoSenha(){
+    return Container(
+      padding: EdgeInsets.only(
+        top: 10,
+        bottom: 10,
+      ),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                color: Colors.white24,
+                width: 0.5,
+              )
+          )
+      ),
+      child: TextFormField(
+        onChanged: (text){
+          _savePassword(text);
+        },
+        obscureText:  true,
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Digite sua Senha';
+          }
+          return null;
+        },
+
+        controller: controllerSenha,
+        style: TextStyle(color: Colors.black,),
+        decoration: InputDecoration(
+            labelText: 'Senha',
+            labelStyle: TextStyle(color: Colors.black54),
+            icon: Icon(
+              Icons.lock,
+              color: Colors.black54,
+            ),
+            border: OutlineInputBorder(),
+            hintText: 'Senha',
+            hintStyle: TextStyle(
+                fontSize: 15
+            ),
+            contentPadding: EdgeInsets.only(
+              top: 5,
+              right: 5,
+              left: 15,
+              bottom: 1,
+            )
+        ),
+        onEditingComplete: () {
+          FocusScope.of(context).nextFocus();
+        },
+      ),
+    );
+  }
+
+  Widget returnCampoNome(){
+    return Container(
+      padding: EdgeInsets.only(
+        top: 10,
+        bottom:10,
+      ),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                color: Colors.white24,
+                width:0.5,
+              )
+          )
+      ),
+      child: TextFormField(
+        onChanged: (text){
+          _saveName(text);
+        },
+        controller:  controllerNome,
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Minimo 5 caracteres';
+          }
+          if(value.length<5){
+            return 'Minimo 5 caracteres';
+          }
+          return null;
+        },
+        style: TextStyle(color: Colors.black,),
+        decoration: InputDecoration(
+            labelText: 'Nome',
+            labelStyle: TextStyle(color: Colors.black54),
+            icon: Icon(
+              Icons.person_pin,
+              color: Colors.black54,
+            ),
+            border: OutlineInputBorder(),
+            hintText: 'Nome',
+            hintStyle: TextStyle(
+                fontSize: 15
+            ),
+            contentPadding: EdgeInsets.only(
+              top:5,
+              right:5,
+              left:15,
+              bottom: 1,
+            )
+        ),
+        onEditingComplete: () {
+          FocusScope.of(context).nextFocus();
+        },
+      ),
+    );
+  }
+
+  Widget returnCampoCampeonato(){
+    return Container(
+      padding: EdgeInsets.only(
+        top: 10,
+        bottom:10,
+      ),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                color: Colors.white24,
+                width:0.5,
+              )
+          )
+      ),
+      child: TextFormField(
+        onChanged: (text){
+          _saveCampId(text);
+        },
+        controller:  controllerEvento,
+        style: TextStyle(color: Colors.black,),
+        decoration: InputDecoration(
+            labelText: 'Evento',
+            labelStyle: TextStyle(color: Colors.black54),
+            icon: Icon(
+              Icons.assistant_photo,
+              color: Colors.black54,
+            ),
+            border: OutlineInputBorder(),
+            hintText: 'Evento',
+            hintStyle: TextStyle(
+                fontSize: 15
+            ),
+            contentPadding: EdgeInsets.only(
+              top:5,
+              right:5,
+              left:15,
+              bottom: 1,
+            )
+        ),
+        onEditingComplete: () async {
+          await  pressButtonToLogin();
+        },
+      ),
+    );
+  }
+
+  void _saveName(String dado) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(Config.shareName, dado);
+    userGlobal.name = dado;
+  }
+
+  void _savePassword(String dado) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(Config.sharePassword, dado);
+    userGlobal.password = dado;
+  }
+
+  void _saveCampId(String dado) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(Config.shareCamp, dado);
+    userGlobal.campId = dado;
+  }
+
+  Widget formContainer() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      child: Form(
+        key: formKey,
+        child: Column(
+          children: <Widget>[
+            returnCampoNome(),
+            returnCampoSenha(),
+            returnCampoCampeonato(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> pressButtonToLogin() async {
+    setState(() {
+      loading =true;
+    });
+    userGlobal.name = controllerNome.text;
+    userGlobal.password = controllerSenha.text;
+    userGlobal.campId = controllerEvento.text;
+    await consultaDocumentosLogin();
+    verificaDadoParaLogin(context);
+    setState(() {
+      loading =false;
+    });
+  }
+
 
 
 

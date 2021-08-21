@@ -30,13 +30,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/facebook.png
-    - images/loginFundo.jpg
-    - images/whatsapp.png
-    - images/instagram.png
-    - images/lutadorBlue.png
-    - images/bolaPoomsae.png
-    - images/fundoVerde.jpeg
+    - images/
 
 
 flutter_icons:
