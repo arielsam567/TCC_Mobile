@@ -231,7 +231,6 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 user.userId = '${f.data['id']}';
                 userGlobal.userId = user.userId;
               }
-              print("aqui1");
               status = true;
             } else {
               setState(() {
@@ -454,7 +453,6 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     userGlobal.password = controllerSenha.text;
     userGlobal.campId = controllerEvento.text;
     bool success = await consultaDocumentosLogin();
-    print('success $success');
     if(success == true){
       verificaDadoParaLogin(context);
     }

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:tcc_mobile/config/config.dart';
 import 'package:tcc_mobile/view/Arbitro.dart';
 import 'package:tcc_mobile/Config/strings.dart';
 import '../../main.dart';
@@ -338,7 +339,7 @@ class _PoomsaeBState extends State<PoomsaeB> {
     try {
       if(!flag) {
         final databaseReference = Firestore.instance;
-        databaseReference.collection("${userGlobal.campId}-Competidores")
+        databaseReference.collection("${userGlobal.campId}${Config.competidores}")
             .document(dbIdCompetidor)
             .updateData({
           '${userGlobal.userId}nt1': '${notaTecnica.toStringAsFixed(2)}',
@@ -356,7 +357,7 @@ class _PoomsaeBState extends State<PoomsaeB> {
 //        double novaNotaRit = (( sliderB ) + double.parse(dbLastNotaRit))/2;
 
         final databaseReference = Firestore.instance;
-        databaseReference.collection("${userGlobal.campId}-Competidores")
+        databaseReference.collection("${userGlobal.campId}${Config.competidores}")
             .document(dbIdCompetidor)
             .updateData({
           '${userGlobal.userId}nt2': '${notaTecnica.toStringAsFixed(2)}',
