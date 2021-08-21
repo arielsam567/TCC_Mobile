@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         // needed
                         color: Colors.transparent,
                         child: InkWell(
-                          onTap: () => _launchURL("https://www.instagram.com/taekwondodezdan/"), // needed
+                          onTap: () => _launchURL("https://www.instagram.com/wickedbotz/"), // needed
                           child: Image.asset(
                             "images/instagram.png",
                             width: 40,
@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         // needed
                         color: Colors.transparent,
                         child: InkWell(
-                          onTap: () => _launchURL("https://www.facebook.com/dezdan.dezdan/"), // needed
+                          onTap: () => _launchURL("https://www.facebook.com/wickedbotz"), // needed
                           child: Image.asset(
                             "images/facebook.png",
                             width: 40,
@@ -219,7 +219,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         // needed
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => _launchURL("https://api.whatsapp.com/send?phone=5548996499889"), // needed
+          onTap: () => _launchURL("https://api.whatsapp.com/send?phone=5547988617244"), // needed
           child: Image.asset(
             "images/whatsapp.png",
             width: 40,

@@ -12,7 +12,8 @@ class HomeController extends ChangeNotifier{
   Future init() async {
     _loading = true;
     notifyListeners();
-    //helps = await _settingsRepository.getHelps();
+
+
     _loading = false;
     notifyListeners();
   }
