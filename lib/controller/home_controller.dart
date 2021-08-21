@@ -10,7 +10,6 @@ class HomeController extends ChangeNotifier{
   }
 
   Future init() async {
-    print('init help');
     _loading = true;
     notifyListeners();
     //helps = await _settingsRepository.getHelps();

@@ -16,9 +16,9 @@ class FormContainerState extends State<FormContainer> {
   @override
    void initState(){
     super.initState();
-    controllerSenha.text = senhaUsuarioGlobal;
-    controllerNome.text = nomeUsuarioGlobal;
-    controllerEvento.text = campeonatoGlobal;
+    controllerSenha.text = userGlobal.password;
+    controllerNome.text = userGlobal.name;
+    controllerEvento.text = userGlobal.campId;
   }
 
   @override
@@ -191,19 +191,19 @@ class FormContainerState extends State<FormContainer> {
   void _salvaNome(String dado) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('nomeUsuarioGlobal', dado);
-    nomeUsuarioGlobal = dado;
+    userGlobal.name = dado;
   }
 
   void _salvaSenha(String dado) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('senhaUsuarioGlobal', dado);
-    senhaUsuarioGlobal = dado;
+    userGlobal.password = dado;
   }
 
   void _salvaCampeonato(String dado) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('campeonatoGlobal', dado);
-    campeonatoGlobal = dado;
+    userGlobal.campId = dado;
   }
 
 }

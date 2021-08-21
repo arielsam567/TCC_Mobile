@@ -338,18 +338,17 @@ class _PoomsaeBState extends State<PoomsaeB> {
     try {
       if(!flag) {
         final databaseReference = Firestore.instance;
-        databaseReference.collection("$campeonatoGlobal-Competidores")
+        databaseReference.collection("${userGlobal.campId}-Competidores")
             .document(dbIdCompetidor)
             .updateData({
-          '${valorArbitroGlobal}nt1': '${notaTecnica.toStringAsFixed(2)}',
-          '${valorArbitroGlobal}np1': '${sliderA.toStringAsFixed(2)}',
-          '${valorArbitroGlobal}nr1': '${sliderB.toStringAsFixed(2)}',
-          '${valorArbitroGlobal}ne1': '${sliderC.toStringAsFixed(2)}',
-          '${valorArbitroGlobal}ng1': '${(notaTecnica + sliderA + sliderB +
+          '${userGlobal.userId}nt1': '${notaTecnica.toStringAsFixed(2)}',
+          '${userGlobal.userId}np1': '${sliderA.toStringAsFixed(2)}',
+          '${userGlobal.userId}nr1': '${sliderB.toStringAsFixed(2)}',
+          '${userGlobal.userId}ne1': '${sliderC.toStringAsFixed(2)}',
+          '${userGlobal.userId}ng1': '${(notaTecnica + sliderA + sliderB +
               sliderC).toStringAsFixed(2)}',
         });
-        print("atualizado com sucesso AS  NOTAS");
-      }else if(flag){
+        }else if(flag){
 //        double novaMedia = ((notaTecnica + sliderA + sliderB + sliderC) + double.parse(dbMedia))/2;
 //        double novaNotaPot = ((sliderA) + double.parse(dbLastNotaPot))/2;
 //        double novaNotaExp = (( sliderC) + double.parse(dbLastNotaExp))/2;
@@ -357,17 +356,16 @@ class _PoomsaeBState extends State<PoomsaeB> {
 //        double novaNotaRit = (( sliderB ) + double.parse(dbLastNotaRit))/2;
 
         final databaseReference = Firestore.instance;
-        databaseReference.collection("$campeonatoGlobal-Competidores")
+        databaseReference.collection("${userGlobal.campId}-Competidores")
             .document(dbIdCompetidor)
             .updateData({
-          '${valorArbitroGlobal}nt2': '${notaTecnica.toStringAsFixed(2)}',
-          '${valorArbitroGlobal}np2': '${sliderA.toStringAsFixed(2)}',
-          '${valorArbitroGlobal}nr2': '${sliderB.toStringAsFixed(2)}',
-          '${valorArbitroGlobal}ne2': '${sliderC.toStringAsFixed(2)}',
-          '${valorArbitroGlobal}ng2': '${(notaTecnica + sliderA + sliderB + sliderC).toStringAsFixed(2)}',
+          '${userGlobal.userId}nt2': '${notaTecnica.toStringAsFixed(2)}',
+          '${userGlobal.userId}np2': '${sliderA.toStringAsFixed(2)}',
+          '${userGlobal.userId}nr2': '${sliderB.toStringAsFixed(2)}',
+          '${userGlobal.userId}ne2': '${sliderC.toStringAsFixed(2)}',
+          '${userGlobal.userId}ng2': '${(notaTecnica + sliderA + sliderB + sliderC).toStringAsFixed(2)}',
         });
-        print("atualizado com sucesso AS  NOTAS");
-      }
+        }
     } catch (e) {
       print("-------ERRO AO ATUALIZAR NOTAS------$e");
     }

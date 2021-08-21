@@ -1,3 +1,4 @@
+//import 'package:auto_size_text.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
@@ -6,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:tcc_mobile/Config/strings.dart';
-import 'package:tcc_mobile/Login/login_screen.dart';
 import 'package:tcc_mobile/controller/home_controller.dart';
+import 'package:tcc_mobile/view/login/login_screen.dart';
 import '../main.dart';
 import 'Poomsae/PoomsaeA.dart';
 
@@ -60,9 +61,13 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
               floatingActionButton: FloatingActionButton(
                 child: Icon(Icons.exit_to_app),
                 backgroundColor: Colors.black54,
-                onPressed: () => {
+                onPressed: () {
+                  userGlobal.name = '';
+                  userGlobal.password = '';
+                  userGlobal.campId = '';
+                  userGlobal.userId = '';
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => new LoginScreen()))
+                      MaterialPageRoute(builder: (context) => new LoginScreen()));
                 },
               ),
               body: DoubleBackToCloseApp(
@@ -148,7 +153,7 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
       _dbIdCompetidor = new List();
       _dbFlagCompetidor = new List();
       _dbAva1 = new List();
-      databaseReference.collection("$campeonatoGlobal-Competidores").orderBy('nome')
+      databaseReference.collection("${userGlobal.campId}-Competidores").orderBy('nome')
           .getDocuments()
           .then((QuerySnapshot snapshot) {
         snapshot.documents.forEach((f) {
@@ -160,13 +165,8 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
             _dbSexoCompetidor.add('${f.data['sexo'].toString()}');
             _dbIdCompetidor.add('${f.documentID}');
             _dbGraduacaoCompetidor.add('${f.data['graduacao'].toString()}');
-            _dbMediaCompetidor.add('${f.data['${valorArbitroGlobal}ng1'].toString()}');
-            // print(_dbMediaCompetidor);
-//            _dbNotaTec.add('${f.data['${valorArbitroGlobal}nt1'].toString()}');
-//            _dbNotaExp.add('${f.data['${valorArbitroGlobal}ne1'].toString()}');
-//            _dbNotaPot.add('${f.data['${valorArbitroGlobal}np1'].toString()}');
-//            _dbNotaRit.add('${f.data['${valorArbitroGlobal}nr1'].toString()}');
-            if(f.data['${valorArbitroGlobal}np1'].toString() != '0.00'){
+            _dbMediaCompetidor.add('${f.data['${userGlobal.userId}ng1'].toString()}');
+            if(f.data['${userGlobal.userId}np1'].toString() != '0.00'){
               _dbFlagCompetidor.add(true);
             }else{
               _dbFlagCompetidor.add(false);
@@ -181,14 +181,14 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
             _dbSexoCompetidor.add('${f.data['sexo'].toString()}');
             _dbIdCompetidor.add('${f.documentID}');
             _dbGraduacaoCompetidor.add('${f.data['graduacao'].toString()}');
-            _dbMediaCompetidor.add('${f.data['${valorArbitroGlobal}ng2'].toString()}');
+            _dbMediaCompetidor.add('${f.data['${userGlobal.userId}ng2'].toString()}');
             print(_dbMediaCompetidor);
 //            _dbNotaTec.add('${f.data['${valorArbitroGlobal}nt2'].toString()}');
 //            _dbNotaExp.add('${f.data['${valorArbitroGlobal}ne2'].toString()}');
 //            _dbNotaPot.add('${f.data['${valorArbitroGlobal}np2'].toString()}');
 //            _dbNotaRit.add('${f.data['${valorArbitroGlobal}nr2'].toString()}');
 
-            if(f.data['${valorArbitroGlobal}np2'].toString() != '0.00'){
+            if(f.data['${userGlobal.userId}np2'].toString() != '0.00'){
               _dbFlagCompetidor.add(true);
             }else{
               _dbFlagCompetidor.add(false);

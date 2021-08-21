@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tcc_mobile/Login/widgets/form_container.dart';
+import 'package:tcc_mobile/view/login/widgets/form_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
@@ -24,6 +25,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   AnimationController _animationController;
   String avisoErro = '';
   bool loading = false;
+  String dbNomeArbitros;
+  String dbSenhasArbitros;
+  String dbIdArbitro;
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +80,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               setState(() {
                                 loading =true;
                               });
-                              nomeUsuarioGlobal = controllerNome.text;
-                              senhaUsuarioGlobal = controllerSenha.text;
-                              campeonatoGlobal = controllerEvento.text;
+                              userGlobal.name = controllerNome.text;
+                              userGlobal.password = controllerSenha.text;
+                              userGlobal.campId = controllerEvento.text;
                               await consultaDocumentosLogin();
                               verificaDadoParaLogin(context);
                               setState(() {
@@ -228,9 +232,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   void verificaDadoParaLogin(BuildContext context) {
     bool flag = true;
     int acesso = 2;
-    if (dbNomeArbitros == nomeUsuarioGlobal) {
-      print('a');
-      valorArbitroGlobal = dbIdArbitro;
+    if (dbNomeArbitros == userGlobal.name) {
+      userGlobal.userId = dbIdArbitro;
     }
     if (flag && acesso == 2) {
       Navigator.of(context).pushReplacement(
@@ -238,4 +241,30 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       );
     }
   }
+
+  Future<void> consultaDocumentosLogin() async {
+    try {
+      final databaseReference = Firestore.instance;
+      await databaseReference.collection("${userGlobal.campId}-Arbitros").getDocuments().then((
+          QuerySnapshot snapshot) {
+        snapshot.documents.forEach((f) {
+          bool fechado = f.data['fechado'];
+
+          if(fechado == false) {
+            String auxName = '${f.data['nome']}';
+            if(auxName == userGlobal.name) {
+              dbNomeArbitros = auxName;
+              dbSenhasArbitros = '${f.data['senha']}';
+              dbIdArbitro = '${f.data['id']}';
+            }
+          }
+        });
+      });
+    }catch(e){
+      print(e);
+    }
+  }
+
+
+
 }

@@ -241,7 +241,7 @@ class _PoomsaeAState extends State<PoomsaeA> {
                 borderRadius: BorderRadius.circular(5),
               ),
               alignment: Alignment.center,
-              child: newAutoSizeText("ÁRBRITO: " + nomeUsuarioGlobal.toUpperCase()+"  |  ATLETA: " + nomeAtletaPoomsae.toUpperCase() + "  |  EQUIPE: "+equipeAtletaPoomsae.toUpperCase(),MediaQuery.of(context).size.width*0.95),
+              child: newAutoSizeText("ÁRBRITO: " + userGlobal.name.toUpperCase()+"  |  ATLETA: " + nomeAtletaPoomsae.toUpperCase() + "  |  EQUIPE: "+equipeAtletaPoomsae.toUpperCase(),MediaQuery.of(context).size.width*0.95),
             ),
 
           ],
