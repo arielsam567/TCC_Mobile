@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_mobile/config/config.dart';
+import 'package:tcc_mobile/model/user_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
@@ -12,23 +13,21 @@ import '../Arbitro.dart';
 
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key key}) : super(key: key);
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-TextEditingController controllerNome =  new TextEditingController();
-TextEditingController controllerSenha=  new TextEditingController();
-TextEditingController controllerEvento=  new TextEditingController();
 
 
 class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin{
-  AnimationController _animationController;
   String avisoErro = '';
   bool loading = false;
-  String dbNomeArbitros;
-  String dbSenhasArbitros;
-  String dbIdArbitro;
+  UserModel user = new UserModel.start();
+  TextEditingController controllerNome =  new TextEditingController();
+  TextEditingController controllerSenha=  new TextEditingController();
+  TextEditingController controllerEvento=  new TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(top: 30, bottom: 0),
-                        child: Image.asset("images/bolaPoomsae.png",
+                        child: Image.asset("images/iconW.png",
                             width: 160,
                             fit: BoxFit.contain),
                       ),
@@ -175,27 +174,13 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
   @override
   void initState() {
-    _animationController = AnimationController(
-      duration: Duration(seconds: 20),
-      vsync: this,
-    );
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-
     super.initState();
-
-
     controllerSenha.text = userGlobal.password;
     controllerNome.text = userGlobal.name;
     controllerEvento.text = userGlobal.campId;
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
   }
 
   void _launchURL(var url) async {
@@ -224,35 +209,49 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   }
 
   void verificaDadoParaLogin(BuildContext context) {
-    if (dbNomeArbitros == userGlobal.name) {
-      userGlobal.userId = dbIdArbitro;
-    }
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => new ArbitroScreen())
     );
   }
 
-  Future<void> consultaDocumentosLogin() async {
-    try {
-      final databaseReference = Firestore.instance;
-      await databaseReference.collection("${userGlobal.campId}${Config.arbitro}").getDocuments().then((
-          QuerySnapshot snapshot) {
+  Future<bool> consultaDocumentosLogin() async {
+    final databaseReference = Firestore.instance;
+    bool status;
+    await databaseReference.collection("${userGlobal.campId}${Config.arbitro}").getDocuments().then((
+        QuerySnapshot snapshot) {
+      if(snapshot.documents.isNotEmpty) {
+        print("isNotEmpty ");
         snapshot.documents.forEach((f) {
-          bool fechado = f.data['fechado'];
-
-          if(fechado == false) {
-            String auxName = '${f.data['nome']}';
-            if(auxName == userGlobal.name) {
-              dbNomeArbitros = auxName;
-              dbSenhasArbitros = '${f.data['senha']}';
-              dbIdArbitro = '${f.data['id']}';
+          if(f.documentID != 'qtd') {
+            if (f.data['fechado'] == false) {
+              String auxName = '${f.data['nome']}';
+              if (auxName == controllerNome.text) {
+                user.name = auxName;
+                user.password = '${f.data['senha']}';
+                user.userId = '${f.data['id']}';
+                userGlobal.userId = user.userId;
+              }
+              print("aqui1");
+              status = true;
+            } else {
+              setState(() {
+                avisoErro = 'Este campeonato foi fechado';
+              });
+              print("aqui2");
+              status =  false;
             }
           }
         });
-      });
-    }catch(e){
-      print(e);
-    }
+      }
+      else{
+        setState(() {
+          avisoErro = 'Opss, algum erro!';
+        });
+        print("aqui3");
+        status =  false;
+      }
+    });
+    return status;
   }
 
 
@@ -454,8 +453,11 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     userGlobal.name = controllerNome.text;
     userGlobal.password = controllerSenha.text;
     userGlobal.campId = controllerEvento.text;
-    await consultaDocumentosLogin();
-    verificaDadoParaLogin(context);
+    bool success = await consultaDocumentosLogin();
+    print('success $success');
+    if(success == true){
+      verificaDadoParaLogin(context);
+    }
     setState(() {
       loading =false;
     });

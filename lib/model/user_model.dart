@@ -6,4 +6,6 @@ class UserModel{
 
   UserModel(this.name, this.password, this.campId, this.userId);
 
+  UserModel.start();
+
 }
