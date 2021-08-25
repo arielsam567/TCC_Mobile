@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   TextEditingController controllerNome =  new TextEditingController();
   TextEditingController controllerSenha=  new TextEditingController();
   TextEditingController controllerEvento=  new TextEditingController();
-
+  bool _passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -274,7 +274,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         onChanged: (text){
           _savePassword(text);
         },
-        obscureText:  true,
+        obscureText:  _passwordVisible,
         validator: (value) {
           if (value.isEmpty) {
             return 'Digite sua Senha';
@@ -285,6 +285,21 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         controller: controllerSenha,
         style: TextStyle(color: Colors.black,),
         decoration: InputDecoration(
+            suffixIcon: IconButton(
+              icon: Icon(
+                // Based on passwordVisible state choose the icon
+                _passwordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off,
+                color: Theme.of(context).primaryColorDark,
+              ),
+              onPressed: () {
+                // Update the state i.e. toogle the state of passwordVisible variable
+                setState(() {
+                  _passwordVisible = !_passwordVisible;
+                });
+              },
+            ),
             labelText: 'Senha',
             labelStyle: TextStyle(color: Colors.black54),
             icon: Icon(
@@ -293,9 +308,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             ),
             border: OutlineInputBorder(),
             hintText: 'Senha',
-            hintStyle: TextStyle(
-                fontSize: 15
-            ),
+            hintStyle: TextStyle(fontSize: 15),
             contentPadding: EdgeInsets.only(
               top: 5,
               right: 5,
@@ -340,23 +353,23 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         },
         style: TextStyle(color: Colors.black,),
         decoration: InputDecoration(
-            labelText: 'Nome',
-            labelStyle: TextStyle(color: Colors.black54),
-            icon: Icon(
-              Icons.person_pin,
-              color: Colors.black54,
-            ),
-            border: OutlineInputBorder(),
-            hintText: 'Nome',
-            hintStyle: TextStyle(
-                fontSize: 15
-            ),
-            contentPadding: EdgeInsets.only(
-              top:5,
-              right:5,
-              left:15,
-              bottom: 1,
-            )
+          labelText: 'Nome',
+          labelStyle: TextStyle(color: Colors.black54),
+          icon: Icon(
+            Icons.person_pin,
+            color: Colors.black54,
+          ),
+          border: OutlineInputBorder(),
+          hintText: 'Nome',
+          hintStyle: TextStyle(
+              fontSize: 15
+          ),
+          contentPadding: EdgeInsets.only(
+            top:5,
+            right:5,
+            left:15,
+            bottom: 1,
+          ),
         ),
         onEditingComplete: () {
           FocusScope.of(context).nextFocus();
