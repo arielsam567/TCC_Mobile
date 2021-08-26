@@ -19,15 +19,18 @@ class HomeController extends ChangeNotifier{
   Future init() async {
     _loading = true;
     notifyListeners();
-    consultaDocumentosCompetidores();
+    await consultaDocumentosCompetidores();
     _loading = false;
     notifyListeners();
   }
 
 
   consultaDocumentosCompetidores() async {
+    combates = new List();
+    _loading = true;
+    notifyListeners();
     try {
-      databaseReference.collection("${userGlobal.campId}${Config.competidores}").orderBy('nome')
+      await databaseReference.collection("${userGlobal.campId}${Config.competidores}").orderBy('nome')
           .getDocuments()
           .then((QuerySnapshot snapshot) {
         snapshot.documents.forEach((f) {
@@ -42,9 +45,12 @@ class HomeController extends ChangeNotifier{
         }
         );
       });
+      _loading = false;
+      notifyListeners();
     }catch(e){
       print(e);
     }
+
   }
 
 
