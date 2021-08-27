@@ -15,14 +15,6 @@ class AvaliacaoAController extends ChangeNotifier{
 
 
   updateHits(String campo, int valor){
-    // firestoreInstance
-    //     .collection("users")
-    //     .doc(firebaseUser.uid)
-    //     .update({"age": 60}).then((_) {
-    //   print("success!");
-    // });
-
-
     try{
       databaseReference.collection("${userGlobal.campId}${Config.competidores}")
           .document(id).updateData({

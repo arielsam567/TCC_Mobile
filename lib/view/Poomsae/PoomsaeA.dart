@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:tcc_mobile/config/strings.dart';
-import 'package:tcc_mobile/controller/avaliacao_controller.dart';
+import 'package:tcc_mobile/controller/avaliacao_a_controller.dart';
 import 'package:tcc_mobile/model/combate_model.dart';
+
+import 'PoomsaeB.dart';
 
 class PoomsaeA extends StatefulWidget {
   final CombateModel combateModel;
@@ -39,6 +41,20 @@ class _PoomsaeAState extends State<PoomsaeA> {
               appBar: AppBar(
                 backgroundColor: Colors.black54,
                 title: Text(Strings.appName),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_forward_rounded,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Future.delayed(new Duration(milliseconds: 100), () {
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) => new PoomsaeB(combate :widget.combateModel)));
+                      });
+                    },
+                  )
+                ],
               ),
               body: Container(
                 child: Stack(
@@ -186,7 +202,7 @@ class _PoomsaeAState extends State<PoomsaeA> {
                                     setState(() {
                                       widget.combateModel.hitsB++;
                                     });
-                                    controller.updateHits('hits_b', widget.combateModel.hitsA);
+                                    controller.updateHits('hits_b', widget.combateModel.hitsB);
                                   },
                                   child: Text(widget.combateModel.hitsB.toString(),
                                     textAlign: TextAlign.center,
