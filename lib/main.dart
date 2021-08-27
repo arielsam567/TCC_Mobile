@@ -7,6 +7,10 @@ import 'model/user_model.dart';
 
 UserModel userGlobal;
 
+// adb tcpip 5555
+// adb connect
+// adb connect 192.168.0.105:5555
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();

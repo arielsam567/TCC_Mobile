@@ -6,10 +6,8 @@ class CombateModel{
   String equipeA;
   String equipeB;
   String categoria;
-
+  String id;
 
   CombateModel();
-
-   CombateModel.start(this.nameA,this.equipeA,this.nameB, this.equipeB, this.categoria);
 
 }

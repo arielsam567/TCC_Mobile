@@ -29,19 +29,23 @@ class HomeController extends ChangeNotifier{
     combates = new List();
     _loading = true;
     notifyListeners();
+    print('consultaDocumentosCompetidores');
     try {
-      await databaseReference.collection("${userGlobal.campId}${Config.competidores}").orderBy('nome')
+      await databaseReference.collection("${userGlobal.campId}${Config.competidores}")
           .getDocuments()
           .then((QuerySnapshot snapshot) {
         snapshot.documents.forEach((f) {
-            CombateModel combate = new CombateModel();
-            combate.nameA = '${f.data['nome']}';
-            combate.nameB = '${f.data['nome2']}';
-            combate.equipeA = '${f.data['equipe']}';
-            combate.equipeB = '${f.data['equipe2']}';
-            combate.categoria = '${f.data['categoria']}';
-            combates.add(combate);
-
+          print("aqui");
+          CombateModel combate = new CombateModel();
+          combate.nameA = '${f.data['nome_a']}';
+          combate.nameB = '${f.data['nome_b']}';
+          combate.equipeA = '${f.data['equipe_a']}';
+          combate.equipeB = '${f.data['equipe_b']}';
+          combate.categoria = '${f.data['categoria']}';
+          combate.hitsA = f.data['${userGlobal.userId}hits_a'] ?? 0;
+          combate.hitsB = f.data['${userGlobal.userId}hits_b'] ?? 0;
+          combate.id = '${f.documentID}';
+          combates.add(combate);
         }
         );
       });
