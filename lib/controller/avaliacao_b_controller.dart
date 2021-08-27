@@ -1,20 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tcc_mobile/config/config.dart';
+import 'package:tcc_mobile/model/combate_model.dart';
 
 import '../main.dart';
 
-class AvaliacaoAController extends ChangeNotifier{
+class AvaliacaoBController extends ChangeNotifier{
   final databaseReference = Firestore.instance;
   final String id;
   bool _loading = false;
 
-  AvaliacaoAController(this.id);
+  AvaliacaoBController(this.id);
 
   bool get loading => _loading;
 
 
-  updateHits(String campo, int valor){
+
+  finaliza(CombateModel combate) {
+
     try{
       databaseReference.collection("${userGlobal.campId}${Config.competidores}")
           .document(id).updateData({
