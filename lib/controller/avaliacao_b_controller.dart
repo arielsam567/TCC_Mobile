@@ -16,15 +16,18 @@ class AvaliacaoBController extends ChangeNotifier{
 
 
 
-  finaliza(CombateModel combate) {
-
+  Future<bool> finaliza(CombateModel combate) async {
     try{
-      databaseReference.collection("${userGlobal.campId}${Config.competidores}")
+      print(combate.danoA);
+      print(combate.danoB);
+      await databaseReference.collection("${userGlobal.campId}${Config.competidores}")
           .document(id).updateData({
-        '${userGlobal.userId}$campo': valor,
+        '${userGlobal.userId}dano_a': combate.danoA,
+        '${userGlobal.userId}dano_b': combate.danoB,
       });
+      return true;
     }catch(e){
-
+      return false;
     }
   }
 

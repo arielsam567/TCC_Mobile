@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:tcc_mobile/config/strings.dart';
 import 'package:tcc_mobile/controller/avaliacao_b_controller.dart';
@@ -130,6 +131,7 @@ class _PoomsaeBState extends State<PoomsaeB> {
                               onChanged: (double value) {
                                 setState(() {
                                   avaliacaoA = value;
+                                  widget.combate.danoA = avaliacaoA.toInt();
                                 }
                                 );
                               }),
@@ -259,6 +261,7 @@ class _PoomsaeBState extends State<PoomsaeB> {
                               divisions: 5,
                               label: getValue(avaliacaoB),
                               onChanged: (double value) {
+                                widget.combate.danoB = avaliacaoB.toInt();
                                 setState(() {
                                   avaliacaoB = value;
                                 }
@@ -456,7 +459,32 @@ class _PoomsaeBState extends State<PoomsaeB> {
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(40.0))),
                   onPressed: () async {
-                    await controller.finaliza(widget.combate);
+                    bool status = await controller.finaliza(widget.combate);
+                    Navigator.of(context).pop();
+                    if(status){
+                      print('aqui');
+                      Fluttertoast.showToast(
+                          msg: "Combate avaliado com sucesso",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.green,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
+                      //Navigator.of(context).pop();
+
+                    }else{
+                      return  Fluttertoast.showToast(
+                          msg: "Ops, ocorreu algum erro, tente novamente!",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
+                    }
                   },
                   color: Colors.white,
                   padding: EdgeInsets.fromLTRB(50, 12, 50, 12),

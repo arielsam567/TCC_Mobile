@@ -7,6 +7,13 @@ import 'model/user_model.dart';
 
 UserModel userGlobal;
 
+// flutter build apk --split-per-abi
+// flutter build appbundle
+// flutter build ios
+// ./gradlew signingReport
+// gradlew signingReport
+// flutter pub run flutter_launcher_icons:main
+// pod install --repo-update
 // adb tcpip 5555
 // adb connect
 // adb connect 192.168.0.105:5555
