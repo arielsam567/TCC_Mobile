@@ -11,6 +11,8 @@ import 'package:tcc_mobile/config/strings.dart';
 import 'package:tcc_mobile/controller/avaliacao_b_controller.dart';
 import 'package:tcc_mobile/model/combate_model.dart';
 
+import '../Arbitro.dart';
+
 
 class PoomsaeB extends StatefulWidget {
   final CombateModel combate;
@@ -22,8 +24,6 @@ class PoomsaeB extends StatefulWidget {
 }
 
 class _PoomsaeBState extends State<PoomsaeB> {
-  double avaliacaoA = 0;
-  double avaliacaoB = 0;
 
   @override
   void initState(){
@@ -123,15 +123,14 @@ class _PoomsaeBState extends State<PoomsaeB> {
                         Container(
                           margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
                           child: Slider(
-                              value: avaliacaoA,
+                              value: widget.combate.danoA.toDouble(),
                               min: 0,
                               max: 5,
                               divisions: 5,
-                              label: getValue(avaliacaoA),
+                              label: getValue(widget.combate.danoA.toDouble()),
                               onChanged: (double value) {
                                 setState(() {
-                                  avaliacaoA = value;
-                                  widget.combate.danoA = avaliacaoA.toInt();
+                                  widget.combate.danoA = value.toInt();
                                 }
                                 );
                               }),
@@ -255,15 +254,15 @@ class _PoomsaeBState extends State<PoomsaeB> {
                         Container(
                           margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
                           child: Slider(
-                              value: avaliacaoB,
+                              value: widget.combate.danoB.toDouble(),
                               min: 0,
                               max: 5,
                               divisions: 5,
-                              label: getValue(avaliacaoB),
+                              label: getValue(widget.combate.danoB.toDouble()),
                               onChanged: (double value) {
-                                widget.combate.danoB = avaliacaoB.toInt();
+                                widget.combate.danoB = value.toInt();
                                 setState(() {
-                                  avaliacaoB = value;
+                                  widget.combate.danoB = value.toInt();
                                 }
                                 );
                               }),
@@ -423,7 +422,7 @@ class _PoomsaeBState extends State<PoomsaeB> {
                   minFontSize: 8,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 16
+                      fontSize: 16
                   ),
                 ),
               ),
@@ -462,17 +461,19 @@ class _PoomsaeBState extends State<PoomsaeB> {
                     bool status = await controller.finaliza(widget.combate);
                     Navigator.of(context).pop();
                     if(status){
-                      print('aqui');
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => new ArbitroScreen())
+                      );
                       Fluttertoast.showToast(
                           msg: "Combate avaliado com sucesso",
-                          toastLength: Toast.LENGTH_SHORT,
+                          toastLength: Toast.LENGTH_LONG,
                           gravity: ToastGravity.BOTTOM,
                           timeInSecForIosWeb: 1,
                           backgroundColor: Colors.green,
                           textColor: Colors.white,
                           fontSize: 16.0
                       );
-                      Navigator.of(context).pop();
+                      //Navigator.of(context).pop();
 
                     }else{
                       return  Fluttertoast.showToast(
