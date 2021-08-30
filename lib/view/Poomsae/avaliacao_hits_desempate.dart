@@ -5,20 +5,21 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:tcc_mobile/config/strings.dart';
 import 'package:tcc_mobile/controller/avaliacao_a_controller.dart';
+import 'package:tcc_mobile/controller/avaliacao_desempate_controller.dart';
 import 'package:tcc_mobile/model/combate_model.dart';
 
-import 'PoomsaeB.dart';
+import 'avaliacao_dano.dart';
 
-class PoomsaeA extends StatefulWidget {
+class AvaliacaoHitsDesempate extends StatefulWidget {
   final CombateModel combateModel;
 
-  const PoomsaeA({ this.combateModel});
+  const AvaliacaoHitsDesempate({ this.combateModel});
 
   @override
-  _PoomsaeAState createState() => _PoomsaeAState();
+  _AvaliacaoHitsDesempateState createState() => _AvaliacaoHitsDesempateState();
 }
 
-class _PoomsaeAState extends State<PoomsaeA> {
+class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
 
 
   @override
@@ -33,10 +34,10 @@ class _PoomsaeAState extends State<PoomsaeA> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AvaliacaoAController>(
-      create: (context) => AvaliacaoAController(widget.combateModel.id),
-      child: Consumer<AvaliacaoAController>(
-          builder: (BuildContext context, AvaliacaoAController controller, _) {
+    return ChangeNotifierProvider<AvaliacaoDesempateController>(
+      create: (context) => AvaliacaoDesempateController(widget.combateModel.id),
+      child: Consumer<AvaliacaoDesempateController>(
+          builder: (BuildContext context, AvaliacaoDesempateController controller, _) {
             return Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.black54,
@@ -50,7 +51,7 @@ class _PoomsaeAState extends State<PoomsaeA> {
                     onPressed: () {
                       Future.delayed(new Duration(milliseconds: 100), () {
                         Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => new PoomsaeB(combate :widget.combateModel)));
+                            MaterialPageRoute(builder: (context) => new AvaliacaoDano(combate: widget.combateModel)));
                       });
                     },
                   )
@@ -104,7 +105,7 @@ class _PoomsaeAState extends State<PoomsaeA> {
                       child: Padding(
                         padding: const EdgeInsets.only(top:50.0),
                         child: Text(
-                          'HITS',
+                          'Escolha o vencedor no quesito Hits',
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold
@@ -115,7 +116,7 @@ class _PoomsaeAState extends State<PoomsaeA> {
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Container(
@@ -128,59 +129,10 @@ class _PoomsaeAState extends State<PoomsaeA> {
                                   onTap: (){
                                     setState(() {
                                       widget.combateModel.hitsA++;
-                                      });
+                                    });
                                     controller.updateHits('hits_a', widget.combateModel.hitsA);
                                   },
                                   child: Text(widget.combateModel.hitsA.toString(),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 50
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: (MediaQuery.of(context).size.width/2 * 0.3),
-                            height: (MediaQuery.of(context).size.height - 300),
-                            child: Material(
-                              color: Colors.red,
-                              child: Ink(
-                                child: InkWell(
-                                  onTap: (){
-                                    setState(() {
-                                      widget.combateModel.hitsA--;
-                                    });
-                                    controller.updateHits('hits_a', widget.combateModel.hitsA);
-                                  },
-                                  child: Text('-1',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 50
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          Container(
-                            width: (MediaQuery.of(context).size.width/2 * 0.3),
-                            height: (MediaQuery.of(context).size.height - 300),
-                            child: Material(
-                              color: Colors.red,
-                              child: Ink(
-                                child: InkWell(
-                                  onTap: (){
-                                    setState(() {
-                                      widget.combateModel.hitsB--;
-                                    });
-                                    controller.updateHits('hits_b', widget.combateModel.hitsB);
-                                  },
-                                  child: Text('-1',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,

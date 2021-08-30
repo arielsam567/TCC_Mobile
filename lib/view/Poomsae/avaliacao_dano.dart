@@ -14,16 +14,16 @@ import 'package:tcc_mobile/model/combate_model.dart';
 import '../Arbitro.dart';
 
 
-class PoomsaeB extends StatefulWidget {
+class AvaliacaoDano extends StatefulWidget {
   final CombateModel combate;
 
-  const PoomsaeB({ this.combate});
+  const AvaliacaoDano({ this.combate});
 
   @override
-  _PoomsaeBState createState() => _PoomsaeBState();
+  _AvaliacaoDanoState createState() => _AvaliacaoDanoState();
 }
 
-class _PoomsaeBState extends State<PoomsaeB> {
+class _AvaliacaoDanoState extends State<AvaliacaoDano> {
 
   @override
   void initState(){
