@@ -2,27 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:tcc_mobile/config/strings.dart';
-import 'package:tcc_mobile/controller/avaliacao_a_controller.dart';
+import 'package:tcc_mobile/controller/avaliacao_desempate_controller.dart';
 import 'package:tcc_mobile/model/combate_model.dart';
-import 'package:tcc_mobile/view/Poomsae/avaliacao_hits_desempate.dart';
 
-import '../Arbitro.dart';
 import 'avaliacao_dano.dart';
 
-class AvaliacaoHits extends StatefulWidget {
+class AvaliacaoHitsDesempate extends StatefulWidget {
   final CombateModel combateModel;
 
-  const AvaliacaoHits({ this.combateModel});
+  const AvaliacaoHitsDesempate({ this.combateModel});
 
   @override
-  _AvaliacaoHitsState createState() => _AvaliacaoHitsState();
+  _AvaliacaoHitsDesempateState createState() => _AvaliacaoHitsDesempateState();
 }
 
-class _AvaliacaoHitsState extends State<AvaliacaoHits> {
-
-
+class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
+  int vencedor = 3;
   @override
   void initState(){
     super.initState();
@@ -35,10 +33,10 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AvaliacaoAController>(
-      create: (context) => AvaliacaoAController(widget.combateModel.id),
-      child: Consumer<AvaliacaoAController>(
-          builder: (BuildContext context, AvaliacaoAController controller, _) {
+    return ChangeNotifierProvider<AvaliacaoDesempateController>(
+      create: (context) => AvaliacaoDesempateController(widget.combateModel.id),
+      child: Consumer<AvaliacaoDesempateController>(
+          builder: (BuildContext context, AvaliacaoDesempateController controller, _) {
             return Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.black54,
@@ -51,36 +49,24 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                     ),
                     onPressed: () {
                       Future.delayed(new Duration(milliseconds: 100), () {
-                        print(widget.combateModel.hitsA);
-                        print(widget.combateModel.hitsB);
-                        if(widget.combateModel.hitsA == widget.combateModel.hitsB){
-                          print(1);
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => new AvaliacaoHitsDesempate(combateModel: widget.combateModel)));
-                        }else {
-                          print(1111);
+                        if(vencedor != 3) {
                           Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) => new AvaliacaoDano(combate: widget.combateModel)));
+                        }else{
+                          Fluttertoast.showToast(
+                              msg: "Você deve definir um vencedor",
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                          );
                         }
                       });
                     },
                   )
                 ],
-                leading:
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_sharp,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Future.delayed(new Duration(milliseconds: 100), () {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => new ArbitroScreen()));
-
-                    });
-                  },
-                ),
-
               ),
               body: Container(
                 child: Stack(
@@ -123,25 +109,23 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                         ),
                       ],
                     ),//NOMES
-
-
                     Align(
                       alignment: Alignment.topCenter,
                       child: Padding(
                         padding: const EdgeInsets.only(top:50.0),
                         child: Text(
-                          'HITS',
+                          'Escolha o vencedor no quesito Hits',
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold
                           ),
                         ),
                       ),
-                    ), //HITS
+                    ), //Escolha um vencedor no quesito hits
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Container(
@@ -153,60 +137,11 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                                 child: InkWell(
                                   onTap: (){
                                     setState(() {
-                                      widget.combateModel.hitsA++;
+                                      vencedor = 1;
                                     });
-                                    controller.updateHits('hits_a', widget.combateModel.hitsA);
+                                    //controller.updateDesempate('hits_a', widget.combateModel.hitsA);
                                   },
-                                  child: Text(widget.combateModel.hitsA.toString(),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 50
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: (MediaQuery.of(context).size.width/2 * 0.3),
-                            height: (MediaQuery.of(context).size.height - 300),
-                            child: Material(
-                              color: Colors.red,
-                              child: Ink(
-                                child: InkWell(
-                                  onTap: (){
-                                    setState(() {
-                                      widget.combateModel.hitsA--;
-                                    });
-                                    controller.updateHits('hits_a', widget.combateModel.hitsA);
-                                  },
-                                  child: Text('-1',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 50
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          Container(
-                            width: (MediaQuery.of(context).size.width/2 * 0.3),
-                            height: (MediaQuery.of(context).size.height - 300),
-                            child: Material(
-                              color: Colors.red,
-                              child: Ink(
-                                child: InkWell(
-                                  onTap: (){
-                                    setState(() {
-                                      widget.combateModel.hitsB--;
-                                    });
-                                    controller.updateHits('hits_b', widget.combateModel.hitsB);
-                                  },
-                                  child: Text('-1',
+                                  child: Text(vencedor.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -226,11 +161,11 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                                 child: InkWell(
                                   onTap: (){
                                     setState(() {
-                                      widget.combateModel.hitsB++;
+                                      vencedor = 2;
                                     });
-                                    controller.updateHits('hits_b', widget.combateModel.hitsB);
+                                    //controller.updateDesempate('hits_b', widget.combateModel.hitsB);
                                   },
-                                  child: Text(widget.combateModel.hitsB.toString(),
+                                  child: Text(vencedor.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,

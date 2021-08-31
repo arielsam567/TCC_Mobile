@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:tcc_mobile/Config/strings.dart';
 import 'package:tcc_mobile/controller/home_controller.dart';
 import 'package:tcc_mobile/model/combate_model.dart';
-import 'package:tcc_mobile/view/Poomsae/avaliacao_hits.dart';
+import 'package:tcc_mobile/view/avaliacao/avaliacao_hits.dart';
 import 'package:tcc_mobile/view/login/login_screen.dart';
 
 import '../main.dart';
