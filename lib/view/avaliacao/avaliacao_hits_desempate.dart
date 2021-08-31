@@ -132,16 +132,16 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                             width: (MediaQuery.of(context).size.width/2 * 0.7),
                             height: (MediaQuery.of(context).size.height - 200),
                             child: Material(
-                              color: Colors.green,
+                              color: vencedor == 1 ? Colors.green : Colors.grey[300],
                               child: Ink(
                                 child: InkWell(
                                   onTap: (){
                                     setState(() {
                                       vencedor = 1;
                                     });
-                                    //controller.updateDesempate('hits_a', widget.combateModel.hitsA);
+                                    controller.updateDesempate('_desempate', vencedor);
                                   },
-                                  child: Text(vencedor.toString(),
+                                  child: Text(vencedor == 1 ? '🏆' : '😢',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -152,20 +152,21 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                               ),
                             ),
                           ),
+
                           Container(
                             width: (MediaQuery.of(context).size.width/2 * 0.7),
                             height: (MediaQuery.of(context).size.height - 200),
                             child: Material(
-                              color: Colors.green,
+                              color: vencedor == 2 ? Colors.green : Colors.grey[300],
                               child: Ink(
                                 child: InkWell(
                                   onTap: (){
                                     setState(() {
                                       vencedor = 2;
                                     });
-                                    //controller.updateDesempate('hits_b', widget.combateModel.hitsB);
+                                    controller.updateDesempate('_desempate', vencedor);
                                   },
-                                  child: Text(vencedor.toString(),
+                                  child: Text(vencedor == 2 ? '🏆' : '😢',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
