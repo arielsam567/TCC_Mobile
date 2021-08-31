@@ -120,11 +120,11 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
               padding: const EdgeInsets.all(12.0),
               child: InkWell(
                 onTap: (){
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) =>
-
-                      new AvaliacaoHits(combateModel: items[index])
-                      ));
+                  Future.delayed(new Duration(milliseconds: 150), () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => new AvaliacaoHits(combateModel: items[index])
+                        ));
+                  });
                 },
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),

@@ -8,6 +8,7 @@ import 'package:tcc_mobile/controller/avaliacao_a_controller.dart';
 import 'package:tcc_mobile/model/combate_model.dart';
 import 'package:tcc_mobile/view/Poomsae/avaliacao_hits_desempate.dart';
 
+import '../Arbitro.dart';
 import 'avaliacao_dano.dart';
 
 class AvaliacaoHits extends StatefulWidget {
@@ -50,9 +51,9 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                     ),
                     onPressed: () {
                       Future.delayed(new Duration(milliseconds: 100), () {
-                        print(widget.combateModel.danoA);
-                        print(widget.combateModel.danoB);
-                        if(widget.combateModel.danoA == 100){
+                        print(widget.combateModel.hitsA);
+                        print(widget.combateModel.hitsB);
+                        if(widget.combateModel.hitsA == widget.combateModel.hitsB){
                           print(1);
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(builder: (context) => new AvaliacaoHitsDesempate(combateModel: widget.combateModel)));
@@ -65,6 +66,21 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                     },
                   )
                 ],
+                leading:
+                IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_sharp,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Future.delayed(new Duration(milliseconds: 100), () {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => new ArbitroScreen()));
+
+                    });
+                  },
+                ),
+
               ),
               body: Container(
                 child: Stack(
