@@ -155,7 +155,7 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                                     setState(() {
                                       widget.combateModel.hitsA++;
                                     });
-                                    controller.updateHits('hits_a', widget.combateModel.hitsA);
+                                    controller.updateHits('_hits_a', widget.combateModel.hitsA);
                                   },
                                   child: Text(widget.combateModel.hitsA.toString(),
                                     textAlign: TextAlign.center,
@@ -179,7 +179,7 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                                     setState(() {
                                       widget.combateModel.hitsA--;
                                     });
-                                    controller.updateHits('hits_a', widget.combateModel.hitsA);
+                                    controller.updateHits('_hits_a', widget.combateModel.hitsA);
                                   },
                                   child: Text('-1',
                                     textAlign: TextAlign.center,
@@ -204,7 +204,7 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                                     setState(() {
                                       widget.combateModel.hitsB--;
                                     });
-                                    controller.updateHits('hits_b', widget.combateModel.hitsB);
+                                    controller.updateHits('_hits_b', widget.combateModel.hitsB);
                                   },
                                   child: Text('-1',
                                     textAlign: TextAlign.center,
@@ -228,7 +228,7 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                                     setState(() {
                                       widget.combateModel.hitsB++;
                                     });
-                                    controller.updateHits('hits_b', widget.combateModel.hitsB);
+                                    controller.updateHits('_hits_b', widget.combateModel.hitsB);
                                   },
                                   child: Text(widget.combateModel.hitsB.toString(),
                                     textAlign: TextAlign.center,

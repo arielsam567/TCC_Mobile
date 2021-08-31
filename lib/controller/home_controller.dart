@@ -42,10 +42,12 @@ class HomeController extends ChangeNotifier{
           combate.equipeA = '${f.data['equipe_a']}';
           combate.equipeB = '${f.data['equipe_b']}';
           combate.categoria = '${f.data['categoria']}';
-          combate.hitsA = f.data['${userGlobal.userId}hits_a'] ?? 0;
-          combate.hitsB = f.data['${userGlobal.userId}hits_b'] ?? 0;
-          combate.danoB = f.data['${userGlobal.userId}dano_a'] ?? 0;
-          combate.danoB = f.data['${userGlobal.userId}dano_b'] ?? 0;
+          combate.hitsA = f.data['${userGlobal.userId}_hits_a'] ?? 0;
+          combate.hitsB = f.data['${userGlobal.userId}_hits_b'] ?? 0;
+          combate.danoA = f.data['${userGlobal.userId}_dano_a'] ?? 0;
+          combate.danoB = f.data['${userGlobal.userId}_dano_b'] ?? 0;
+          combate.danoB = f.data['${userGlobal.userId}_dano_b'] ?? 0;
+          combate.vencedorDoEmpate = f.data['${userGlobal.userId}_desempate'] ?? 0;
           combate.id = '${f.documentID}';
           combates.add(combate);
         }

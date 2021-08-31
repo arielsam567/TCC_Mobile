@@ -22,8 +22,8 @@ class AvaliacaoBController extends ChangeNotifier{
       print(combate.danoB);
       await databaseReference.collection("${userGlobal.campId}${Config.competidores}")
           .document(id).updateData({
-        '${userGlobal.userId}dano_a': combate.danoA,
-        '${userGlobal.userId}dano_b': combate.danoB,
+        '${userGlobal.userId}_dano_a': combate.danoA,
+        '${userGlobal.userId}_dano_b': combate.danoB,
       });
       return true;
     }catch(e){
