@@ -14,7 +14,7 @@ class AvaliacaoDesempateController extends ChangeNotifier{
   bool get loading => _loading;
 
 
-  updateHits(String campo, int valor){
+  updateDesempate(String campo, int valor){
     try{
       databaseReference.collection("${userGlobal.campId}${Config.competidores}")
           .document(id).updateData({

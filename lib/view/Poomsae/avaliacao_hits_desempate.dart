@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:tcc_mobile/config/strings.dart';
 import 'package:tcc_mobile/controller/avaliacao_a_controller.dart';
@@ -49,8 +50,20 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                     ),
                     onPressed: () {
                       Future.delayed(new Duration(milliseconds: 100), () {
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => new AvaliacaoDano(combate: widget.combateModel)));
+                        if(vencedor != 3) {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => new AvaliacaoDano(combate: widget.combateModel)));
+                        }else{
+                          Fluttertoast.showToast(
+                              msg: "Você deve definir um vencedor",
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                          );
+                        }
                       });
                     },
                   )
@@ -97,8 +110,6 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                         ),
                       ],
                     ),//NOMES
-
-
                     Align(
                       alignment: Alignment.topCenter,
                       child: Padding(
@@ -111,7 +122,7 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                           ),
                         ),
                       ),
-                    ), //HITS
+                    ), //Escolha um vencedor no quesito hits
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: Row(
@@ -127,11 +138,11 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                                 child: InkWell(
                                   onTap: (){
                                     setState(() {
-                                      widget.combateModel.hitsA++;
+                                      vencedor = 1;
                                     });
-                                    controller.updateHits('hits_a', widget.combateModel.hitsA);
+                                    //controller.updateDesempate('hits_a', widget.combateModel.hitsA);
                                   },
-                                  child: Text(widget.combateModel.hitsA.toString(),
+                                  child: Text(vencedor.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -151,11 +162,11 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                                 child: InkWell(
                                   onTap: (){
                                     setState(() {
-                                      widget.combateModel.hitsB++;
+                                      vencedor = 2;
                                     });
-                                    controller.updateHits('hits_b', widget.combateModel.hitsB);
+                                    //controller.updateDesempate('hits_b', widget.combateModel.hitsB);
                                   },
-                                  child: Text(widget.combateModel.hitsB.toString(),
+                                  child: Text(vencedor.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,

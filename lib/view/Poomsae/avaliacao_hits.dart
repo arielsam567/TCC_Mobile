@@ -55,11 +55,11 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                         print(widget.combateModel.hitsB);
                         if(widget.combateModel.hitsA == widget.combateModel.hitsB){
                           print(1);
-                          Navigator.of(context).pushReplacement(
+                          Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) => new AvaliacaoHitsDesempate(combateModel: widget.combateModel)));
                         }else {
                           print(1111);
-                          Navigator.of(context).pushReplacement(
+                          Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) => new AvaliacaoDano(combate: widget.combateModel)));
                         }
                       });
