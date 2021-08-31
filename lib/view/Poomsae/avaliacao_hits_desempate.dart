@@ -20,8 +20,7 @@ class AvaliacaoHitsDesempate extends StatefulWidget {
 }
 
 class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
-
-
+  int vencedor = 3;
   @override
   void initState(){
     super.initState();

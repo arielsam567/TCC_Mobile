@@ -50,10 +50,14 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                     ),
                     onPressed: () {
                       Future.delayed(new Duration(milliseconds: 100), () {
-                        if(widget.combateModel.danoA == widget.combateModel.danoB){
+                        print(widget.combateModel.danoA);
+                        print(widget.combateModel.danoB);
+                        if(widget.combateModel.danoA == 100){
+                          print(1);
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(builder: (context) => new AvaliacaoHitsDesempate(combateModel: widget.combateModel)));
                         }else {
+                          print(1111);
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(builder: (context) => new AvaliacaoDano(combate: widget.combateModel)));
                         }
