@@ -10,6 +10,8 @@ environment:
 
 dependencies:
   cloud_firestore: ^0.13.7
+  firebase_messaging: ^6.0.16
+  firebase_core: ^0.4.5
   auto_size_text: ^2.1.0
   url_launcher: ^5.4.11
   flutter_masked_text: ^0.8.0

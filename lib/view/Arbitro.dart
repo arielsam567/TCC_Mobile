@@ -50,10 +50,6 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
                 child: Icon(Icons.exit_to_app),
                 backgroundColor: Colors.black54,
                 onPressed: () {
-                  userGlobal.name = '';
-                  userGlobal.password = '';
-                  userGlobal.campId = '';
-                  userGlobal.userId = '';
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => new LoginScreen()));
                 },

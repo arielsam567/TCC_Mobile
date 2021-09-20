@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_mobile/config/config.dart';
 import 'package:tcc_mobile/model/user_model.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import '../../main.dart';
 import '../Arbitro.dart';
 
@@ -76,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                             color: Colors.black,
                             shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                             onPressed: () async {
+                              _registerOnFirebase();
                               await pressButtonToLogin();
                             },
                             child: loading ? Container(
@@ -177,6 +178,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+
+    _registerOnFirebase();
     super.initState();
     controllerSenha.text = userGlobal.password;
     controllerNome.text = userGlobal.name;
@@ -190,6 +193,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       throw 'Could not launch $url';
     }
   }
+
+  _registerOnFirebase() async {
+     FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging.subscribeToTopic(controllerEvento.text);
+  }
+
 
   Widget wppIcon() {
     return Container(
