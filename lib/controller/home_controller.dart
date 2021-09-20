@@ -29,13 +29,11 @@ class HomeController extends ChangeNotifier{
     combates = new List();
     _loading = true;
     notifyListeners();
-    print('consultaDocumentosCompetidores');
     try {
       await databaseReference.collection("${userGlobal.campId}${Config.competidores}")
           .getDocuments()
           .then((QuerySnapshot snapshot) {
         snapshot.documents.forEach((f) {
-          print("aqui");
           CombateModel combate = new CombateModel();
           combate.nameA = '${f.data['nome_a']}';
           combate.nameB = '${f.data['nome_b']}';
@@ -49,7 +47,9 @@ class HomeController extends ChangeNotifier{
           combate.danoB = f.data['${userGlobal.userId}_dano_b'] ?? 0;
           combate.vencedorDoEmpate = f.data['${userGlobal.userId}_desempate'] ?? 0;
           combate.id = '${f.documentID}';
-          combates.add(combate);
+          if(f.data['AVALIACAO'] == true){
+            combates.add(combate);
+          }
         }
         );
       });
@@ -60,6 +60,5 @@ class HomeController extends ChangeNotifier{
     }
 
   }
-
 
 }
