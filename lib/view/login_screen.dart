@@ -7,8 +7,8 @@ import 'package:tcc_mobile/config/config.dart';
 import 'package:tcc_mobile/model/user_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import '../../main.dart';
-import '../Arbitro.dart';
+import '../main.dart';
+import 'home_arbitro.dart';
 
 
 

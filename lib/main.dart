@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tcc_mobile/view/login/login_screen.dart';
+import 'package:tcc_mobile/view/login_screen.dart';
 import 'config/config.dart';
 import 'model/user_model.dart';
 

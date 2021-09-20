@@ -8,7 +8,7 @@ import 'package:tcc_mobile/controller/avaliacao_a_controller.dart';
 import 'package:tcc_mobile/model/combate_model.dart';
 import 'package:tcc_mobile/view/avaliacao/avaliacao_hits_desempate.dart';
 
-import '../Arbitro.dart';
+import '../home_arbitro.dart';
 import 'avaliacao_dano.dart';
 
 class AvaliacaoHits extends StatefulWidget {

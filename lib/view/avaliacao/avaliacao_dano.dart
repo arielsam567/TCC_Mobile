@@ -11,7 +11,7 @@ import 'package:tcc_mobile/config/strings.dart';
 import 'package:tcc_mobile/controller/avaliacao_b_controller.dart';
 import 'package:tcc_mobile/model/combate_model.dart';
 
-import '../Arbitro.dart';
+import '../home_arbitro.dart';
 
 
 class AvaliacaoDano extends StatefulWidget {
