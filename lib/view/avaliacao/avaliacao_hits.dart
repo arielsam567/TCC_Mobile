@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:provider/provider.dart';
 import 'package:tcc_mobile/config/strings.dart';
 import 'package:tcc_mobile/controller/avaliacao_a_controller.dart';
@@ -21,6 +22,8 @@ class AvaliacaoHits extends StatefulWidget {
 }
 
 class _AvaliacaoHitsState extends State<AvaliacaoHits> {
+  Color greenBase = Color(0xff14ff00);
+  Color redBase = Color(0xffff0000);
 
 
   @override
@@ -51,14 +54,10 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                     ),
                     onPressed: () {
                       Future.delayed(new Duration(milliseconds: 100), () {
-                        print(widget.combateModel.hitsA);
-                        print(widget.combateModel.hitsB);
                         if(widget.combateModel.hitsA == widget.combateModel.hitsB){
-                          print(1);
                           Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) => new AvaliacaoHitsDesempate(combateModel: widget.combateModel)));
                         }else {
-                          print(1111);
                           Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) => new AvaliacaoDano(combate: widget.combateModel)));
                         }
@@ -83,13 +82,17 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
 
               ),
               body: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage("images/fundoBra.png"),
+                        fit: BoxFit.cover)
+                ),
                 child: Stack(
                   children: [
                     Row(
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width/2,
-                          color: Colors.grey,
+                          //color: Colors.grey,
                           child: Column(
                             children: [
                               SizedBox(height: 10,),
@@ -97,7 +100,8 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                                 textAlign: TextAlign.center,
                                 maxLines: 1,
                                 style: TextStyle(
-                                    fontSize: 25
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold
                                 ),
                               ),
                               SizedBox(height: 10,),
@@ -106,7 +110,6 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width/2,
-                          color: Colors.greenAccent,
                           child: Column(
                             children: [
                               SizedBox(height: 10,),
@@ -114,7 +117,8 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                                 textAlign: TextAlign.center,
                                 maxLines: 1,
                                 style: TextStyle(
-                                    fontSize: 25
+                                    fontSize: 25,
+                                  fontWeight: FontWeight.bold
                                 ),
                               ),
                               SizedBox(height: 10,),
@@ -147,21 +151,29 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                           Container(
                             width: (MediaQuery.of(context).size.width/2 * 0.7),
                             height: (MediaQuery.of(context).size.height - 200),
+                            padding: EdgeInsets.only(right: 15),
                             child: Material(
-                              color: Colors.green,
+                              color: greenBase,
+                              borderRadius:BorderRadius.only(topRight: Radius.circular(30),),
                               child: Ink(
                                 child: InkWell(
+                                  borderRadius: BorderRadius.only(topRight: Radius.circular(30),),
                                   onTap: (){
+                                    Vibrate.feedback(FeedbackType.medium);
                                     setState(() {
                                       widget.combateModel.hitsA++;
                                     });
                                     controller.updateHits('_hits_a', widget.combateModel.hitsA);
                                   },
-                                  child: Text(widget.combateModel.hitsA.toString(),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 50
+                                  child: Container(
+                                    height: (MediaQuery.of(context).size.height - 200),
+                                    alignment: Alignment.center,
+                                    child: Text(widget.combateModel.hitsA.toString(),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 50
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -171,15 +183,24 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                           Container(
                             width: (MediaQuery.of(context).size.width/2 * 0.3),
                             height: (MediaQuery.of(context).size.height - 300),
+                            padding: EdgeInsets.only(right: 5),
                             child: Material(
-                              color: Colors.red,
+                              color: redBase,
+                              borderRadius:BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30),),
                               child: Ink(
                                 child: InkWell(
+                                  splashColor: Colors.white.withOpacity(0.8),
+                                  highlightColor: Colors.white.withOpacity(0.8),
+                                  borderRadius:BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30),),
                                   onTap: (){
-                                    setState(() {
-                                      widget.combateModel.hitsA--;
-                                    });
-                                    controller.updateHits('_hits_a', widget.combateModel.hitsA);
+                                    if(widget.combateModel.hitsA>0) {
+                                      Vibrate.feedback(FeedbackType.warning);
+                                      setState(() {
+                                        widget.combateModel.hitsA--;
+                                      });
+                                      controller.updateHits(
+                                          '_hits_a', widget.combateModel.hitsA);
+                                    }
                                   },
                                   child: Text('-1',
                                     textAlign: TextAlign.center,
@@ -195,16 +216,26 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
 
                           Container(
                             width: (MediaQuery.of(context).size.width/2 * 0.3),
+                            padding: EdgeInsets.only(left: 5),
                             height: (MediaQuery.of(context).size.height - 300),
                             child: Material(
-                              color: Colors.red,
+                              color: redBase,
+                              borderRadius:BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30),),
+
                               child: Ink(
                                 child: InkWell(
+                                  splashColor: Colors.white.withOpacity(0.8),
+                                  highlightColor: Colors.white.withOpacity(0.8),
+                                  borderRadius:BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30),),
                                   onTap: (){
-                                    setState(() {
-                                      widget.combateModel.hitsB--;
-                                    });
-                                    controller.updateHits('_hits_b', widget.combateModel.hitsB);
+                                    if(widget.combateModel.hitsB>0) {
+                                      Vibrate.feedback(FeedbackType.warning);
+                                      setState(() {
+                                        widget.combateModel.hitsB--;
+                                      });
+                                      controller.updateHits(
+                                          '_hits_b', widget.combateModel.hitsB);
+                                    }
                                   },
                                   child: Text('-1',
                                     textAlign: TextAlign.center,
@@ -220,21 +251,33 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                           Container(
                             width: (MediaQuery.of(context).size.width/2 * 0.7),
                             height: (MediaQuery.of(context).size.height - 200),
+                            padding: EdgeInsets.only(left: 10),
                             child: Material(
-                              color: Colors.green,
+                              color: greenBase,
+                              borderRadius:BorderRadius.only( topLeft: Radius.circular(30),),
+
                               child: Ink(
                                 child: InkWell(
+
+                                  splashColor: Colors.white.withOpacity(0.8),
+                                  highlightColor: Colors.white.withOpacity(0.8),
+                                  borderRadius:BorderRadius.only( topLeft: Radius.circular(30),),
                                   onTap: (){
+                                    Vibrate.feedback(FeedbackType.medium);
                                     setState(() {
                                       widget.combateModel.hitsB++;
                                     });
                                     controller.updateHits('_hits_b', widget.combateModel.hitsB);
                                   },
-                                  child: Text(widget.combateModel.hitsB.toString(),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 50
+                                  child: Container(
+                                    height: (MediaQuery.of(context).size.height - 200),
+                                    alignment: Alignment.center,
+                                    child: Text(widget.combateModel.hitsB.toString(),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 50
+                                      ),
                                     ),
                                   ),
                                 ),

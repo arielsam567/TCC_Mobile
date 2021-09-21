@@ -20,6 +20,7 @@ dependencies:
   provider: ^4.3.3
   flutter_launcher_icons: ^0.8.0
   fluttertoast: ^7.0.2
+  flutter_vibrate: ^1.0.0
 
 
   flutter:

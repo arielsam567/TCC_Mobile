@@ -229,23 +229,28 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     await databaseReference.collection("${userGlobal.campId}${Config.arbitro}").getDocuments().then((
         QuerySnapshot snapshot) {
       if(snapshot.documents.isNotEmpty) {
-        print("isNotEmpty ");
         snapshot.documents.forEach((f) {
           if(f.documentID != 'qtd') {
             if (f.data['fechado'] == false) {
               String auxName = '${f.data['nome']}';
-              if (auxName == controllerNome.text) {
+              user.name = auxName;
+              user.password = '${f.data['senha']}';
+              user.userId = '${f.data['id']}';
+              if (auxName == controllerNome.text && user.password == controllerSenha.text) {
                 user.name = auxName;
                 user.password = '${f.data['senha']}';
                 user.userId = '${f.data['id']}';
                 userGlobal.userId = user.userId;
+                status = true;
+              }else{
+                setState(() {
+                  avisoErro = 'Ops..';
+                });
               }
-              status = true;
             } else {
               setState(() {
                 avisoErro = 'Este campeonato foi fechado';
               });
-              print("aqui2");
               status =  false;
             }
           }
@@ -255,7 +260,6 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         setState(() {
           avisoErro = 'Opss, algum erro!';
         });
-        print("aqui3");
         status =  false;
       }
     });

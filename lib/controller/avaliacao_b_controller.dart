@@ -24,8 +24,6 @@ class AvaliacaoBController extends ChangeNotifier{
     _loading = true;
     notifyListeners();
     try{
-      print(combate.danoA);
-      print(combate.danoB);
       await databaseReference.collection("${userGlobal.campId}${Config.competidores}")
           .document(id).updateData({
         '${userGlobal.userId}_dano_a': combate.danoA,

@@ -11,7 +11,7 @@ import 'package:tcc_mobile/controller/avaliacao_b_controller.dart';
 import 'package:tcc_mobile/model/combate_model.dart';
 import 'package:tcc_mobile/view/help_dano.dart';
 import '../home_arbitro.dart';
-
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 
 class AvaliacaoDano extends StatefulWidget {
   final CombateModel combate;
@@ -175,6 +175,7 @@ class _AvaliacaoDanoState extends State<AvaliacaoDano> {
                                   divisions: 5,
                                   label: getValue(widget.combate.danoA.toDouble()),
                                   onChanged: (double value) {
+                                    Vibrate.feedback(FeedbackType.medium);
                                     setState(() {
                                       widget.combate.danoA = value.toInt();
                                     }
@@ -331,6 +332,7 @@ class _AvaliacaoDanoState extends State<AvaliacaoDano> {
                                   divisions: 5,
                                   label: getValue(widget.combate.danoB.toDouble()),
                                   onChanged: (double value) {
+                                    Vibrate.feedback(FeedbackType.medium);
                                     widget.combate.danoB = value.toInt();
                                     setState(() {
                                       widget.combate.danoB = value.toInt();
