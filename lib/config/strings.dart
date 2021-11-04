@@ -1,5 +1,5 @@
 class Strings{
 
-  static const String appName = "A DEFINIR";
+  static const String appName = "JudgeBot";
 
 }
