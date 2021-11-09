@@ -21,6 +21,7 @@ dependencies:
   flutter_launcher_icons: ^0.8.0
   fluttertoast: ^7.0.2
   flutter_vibrate: ^1.0.0
+  page_transition: ^1.1.7+6
 
 
   flutter:

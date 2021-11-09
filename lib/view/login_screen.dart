@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tcc_mobile/config/config.dart';
 import 'package:tcc_mobile/model/user_model.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+
 import '../main.dart';
 import 'home_arbitro.dart';
 
@@ -64,11 +66,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                           ],
                         ),
                       ),
-                      Text(
-                        avisoErro,
-                        style: TextStyle(color: Colors.red),
-                        textAlign: TextAlign.center,
-                      ),
+
                       SizedBox(height: 20,),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -195,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   }
 
   _registerOnFirebase() async {
-     FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
     _firebaseMessaging.subscribeToTopic(controllerEvento.text);
   }
 
@@ -207,7 +205,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         // needed
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => _launchURL("https://api.whatsapp.com/send?phone=5547988617244"), // needed
+          onTap: () => _launchURL("https://api.whatsapp.com/send?phone=5547988617240&"
+              "text=Olá, estou entrando em contato através do app JudgeBotz"), // needed
           child: Image.asset(
             "images/whatsapp.png",
             width: 40,
@@ -217,11 +216,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       ),);
   }
 
-  void verificaDadoParaLogin(BuildContext context) {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => new ArbitroScreen())
-    );
-  }
+
 
   Future<bool> consultaDocumentosLogin() async {
     final databaseReference = Firestore.instance;
@@ -243,23 +238,17 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 userGlobal.userId = user.userId;
                 status = true;
               }else{
-                setState(() {
-                  avisoErro = 'Ops..';
-                });
+                avisoErro = 'Verifique seus dados e tente novamente';
               }
             } else {
-              setState(() {
-                avisoErro = 'Este campeonato foi fechado';
-              });
+              avisoErro = 'Este campeonato foi fechado';
               status =  false;
             }
           }
         });
       }
       else{
-        setState(() {
-          avisoErro = 'Opss, algum erro!';
-        });
+        avisoErro = 'Opss, algum erro!';
         status =  false;
       }
     });
@@ -284,6 +273,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
           )
       ),
       child: TextFormField(
+        textInputAction: TextInputAction.next,
         onChanged: (text){
           _savePassword(text);
         },
@@ -298,36 +288,33 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         controller: controllerSenha,
         style: TextStyle(color: Colors.black,),
         decoration: InputDecoration(
-            suffixIcon: IconButton(
-              icon: Icon(
-                // Based on passwordVisible state choose the icon
-                _passwordVisible
-                    ? Icons.visibility
-                    : Icons.visibility_off,
-                color: Theme.of(context).primaryColorDark,
-              ),
-              onPressed: () {
-                // Update the state i.e. toogle the state of passwordVisible variable
-                setState(() {
-                  _passwordVisible = !_passwordVisible;
-                });
-              },
-            ),
-            labelText: 'Senha',
-            labelStyle: TextStyle(color: Colors.black54),
+          suffixIcon: IconButton(
             icon: Icon(
-              Icons.lock,
-              color: Colors.black54,
+              // Based on passwordVisible state choose the icon
+              !_passwordVisible ? Icons.visibility : Icons.visibility_off,
+              color: Theme.of(context).primaryColorDark,
             ),
-            border: OutlineInputBorder(),
-            hintText: 'Senha',
-            hintStyle: TextStyle(fontSize: 15),
-            contentPadding: EdgeInsets.only(
-              top: 5,
-              right: 5,
-              left: 15,
-              bottom: 1,
-            )
+            onPressed: () {
+              setState(() {
+                _passwordVisible = !_passwordVisible;
+              });
+            },
+          ),
+          labelText: 'Senha',
+          labelStyle: TextStyle(color: Colors.black54),
+          icon: Icon(
+            Icons.lock,
+            color: Colors.black54,
+          ),
+          border: OutlineInputBorder(),
+          hintText: 'Senha',
+          hintStyle: TextStyle(fontSize: 15),
+          contentPadding: EdgeInsets.only(
+            top: 5,
+            right: 5,
+            left: 15,
+            bottom: 1,
+          ),
         ),
         onEditingComplete: () {
           FocusScope.of(context).nextFocus();
@@ -351,16 +338,14 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
           )
       ),
       child: TextFormField(
+        textInputAction: TextInputAction.next,
         onChanged: (text){
           _saveName(text);
         },
         controller:  controllerNome,
         validator: (value) {
           if (value.isEmpty) {
-            return 'Minimo 5 caracteres';
-          }
-          if(value.length<5){
-            return 'Minimo 5 caracteres';
+            return 'Informe o nome';
           }
           return null;
         },
@@ -406,6 +391,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
           )
       ),
       child: TextFormField(
+        textInputAction: TextInputAction.done,
         onChanged: (text){
           _saveCampId(text);
         },
@@ -465,6 +451,15 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             returnCampoNome(),
             returnCampoSenha(),
             returnCampoCampeonato(),
+            Container(
+              padding: EdgeInsets.only(top: 10),
+              width: MediaQuery.of(context).size.width*0.5,
+              child: Text(
+                avisoErro,
+                style: TextStyle(color: Colors.red),
+                textAlign: TextAlign.center,
+              ),
+            ),
           ],
         ),
       ),
@@ -480,7 +475,17 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     userGlobal.campId = controllerEvento.text;
     bool success = await consultaDocumentosLogin();
     if(success == true){
-      verificaDadoParaLogin(context);
+      avisoErro = '';
+      // Navigator.of(context).pushReplacement(
+      //     MaterialPageRoute(builder: (context) => new ArbitroScreen())
+      // );
+
+      Navigator.pushReplacement(context,
+          PageTransition(type:
+          PageTransitionType.bottomToTop,
+              curve: Curves.fastOutSlowIn,
+              duration: Duration(milliseconds: 1200),
+              child: ArbitroScreen()));
     }
     setState(() {
       loading =false;
