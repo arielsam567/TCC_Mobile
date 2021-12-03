@@ -69,13 +69,16 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                 ],
               ),
               body: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage("images/fundoBra.png"),
+                        fit: BoxFit.cover)
+                ),
                 child: Stack(
                   children: [
                     Row(
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width/2,
-                          color: Colors.grey,
                           child: Column(
                             children: [
                               SizedBox(height: 10,),
@@ -92,7 +95,6 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width/2,
-                          color: Colors.greenAccent,
                           child: Column(
                             children: [
                               SizedBox(height: 10,),
@@ -109,6 +111,7 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                         ),
                       ],
                     ),//NOMES
+
                     Align(
                       alignment: Alignment.topCenter,
                       child: Padding(
@@ -122,6 +125,7 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                         ),
                       ),
                     ), //Escolha um vencedor no quesito hits
+
                     Align(
                       alignment: Alignment.bottomLeft,
                       child: Row(
@@ -132,20 +136,24 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                             width: (MediaQuery.of(context).size.width/2 * 0.7),
                             height: (MediaQuery.of(context).size.height - 200),
                             child: Material(
-                              color: vencedor == 1 ? Colors.green : Colors.grey[300],
+                              borderRadius:BorderRadius.only(topRight: Radius.circular(30),),
+                              color: vencedor == 1 ? Colors.green : Colors.redAccent.withOpacity(0.7),
                               child: Ink(
                                 child: InkWell(
+                                  borderRadius:BorderRadius.only(topRight: Radius.circular(30),),
                                   onTap: (){
                                     setState(() {
                                       vencedor = 1;
                                     });
                                     controller.updateDesempate('_desempate', vencedor);
                                   },
-                                  child: Text(vencedor == 1 ? '🏆' : '😢',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 50
+                                  child: Center(
+                                    child: Text(vencedor == 1 ? '🏆' : '😢',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 50
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -157,20 +165,25 @@ class _AvaliacaoHitsDesempateState extends State<AvaliacaoHitsDesempate> {
                             width: (MediaQuery.of(context).size.width/2 * 0.7),
                             height: (MediaQuery.of(context).size.height - 200),
                             child: Material(
-                              color: vencedor == 2 ? Colors.green : Colors.grey[300],
+                              color: vencedor == 2 ? Colors.green : Colors.redAccent.withOpacity(0.7),
+                              borderRadius:BorderRadius.only(topLeft: Radius.circular(30),),
                               child: Ink(
+
                                 child: InkWell(
+                                  borderRadius:BorderRadius.only(topLeft: Radius.circular(30),),
                                   onTap: (){
                                     setState(() {
                                       vencedor = 2;
                                     });
                                     controller.updateDesempate('_desempate', vencedor);
                                   },
-                                  child: Text(vencedor == 2 ? '🏆' : '😢',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 50
+                                  child: Center(
+                                    child: Text(vencedor == 2 ? '🏆' : '😢',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 50
+                                      ),
                                     ),
                                   ),
                                 ),

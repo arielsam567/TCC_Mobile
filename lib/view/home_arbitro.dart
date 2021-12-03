@@ -10,6 +10,8 @@ import 'package:tcc_mobile/model/combate_model.dart';
 import 'package:tcc_mobile/view/avaliacao/avaliacao_hits.dart';
 import 'package:tcc_mobile/view/login_screen.dart';
 
+import '../main.dart';
+
 class ArbitroScreen extends StatefulWidget {
   @override
   _ArbitroScreenState createState() => _ArbitroScreenState();
@@ -106,10 +108,15 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
       itemCount: (items.length),
       shrinkWrap: true,
       itemBuilder: (context, index) {
+        bool avaliado = false;
+        if(items[index].hitsA > 0 || items[index].hitsB > 0){
+          print('avaliado');
+          avaliado = true;
+        }
         return Container(
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Material(
-            color:  Colors.white.withOpacity(0.9),
+            color:  Colors.black.withOpacity(0.9),
             child: Ink(
               padding: const EdgeInsets.all(12.0),
               child: InkWell(
