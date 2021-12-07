@@ -10,8 +10,6 @@ import 'package:tcc_mobile/model/combate_model.dart';
 import 'package:tcc_mobile/view/avaliacao/avaliacao_hits.dart';
 import 'package:tcc_mobile/view/login_screen.dart';
 
-import '../main.dart';
-
 class ArbitroScreen extends StatefulWidget {
   @override
   _ArbitroScreenState createState() => _ArbitroScreenState();
@@ -115,11 +113,13 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
         }
         return Container(
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+          margin: const EdgeInsets.all(12.0),
           child: Material(
-            color:  Colors.black.withOpacity(0.9),
+            color: avaliado ? Colors.grey.withOpacity(0.9):  Colors.white.withOpacity(0.9),
+            borderRadius: BorderRadius.circular(5.0),
             child: Ink(
-              padding: const EdgeInsets.all(12.0),
               child: InkWell(
+                borderRadius: BorderRadius.circular(5.0),
                 onTap: (){
                   Future.delayed(new Duration(milliseconds: 150), () {
                     Navigator.of(context).push(
@@ -130,7 +130,7 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
+                    border: Border.all(color: Colors.grey.withOpacity(0.9)),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: Column(
@@ -139,15 +139,20 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
                     children: [
                       SizedBox(height: 15,),
                       Text('Competidor 1: ${items[index].nameA}'
-                          '\nEquipe: ${items[index].nameA}'),
+                          '\nEquipe: ${items[index].nameA}',
+                        style: teste(avaliado),),
                       SizedBox(height: 5,),
-                      Divider(thickness: 1.2,color: Colors.black,),
+                      Divider(thickness: 1.2,
+                          color: avaliado ? Colors.white :  Colors.black ),
                       SizedBox(height: 5,),
                       Text('Competidor 2: ${items[index].nameB}'
-                          '\nEquipe: ${items[index].nameB}'),
-                      Divider(thickness: 1.2,color: Colors.black,),
+                          '\nEquipe: ${items[index].nameB}',
+                        style: teste(avaliado),),
+                      Divider(thickness: 1.2,
+                          color: avaliado ? Colors.white :  Colors.black
+                      ),
                       SizedBox(height: 5,),
-                      Text('Categoria: ${items[index].categoria}'),
+                      Text('Categoria: ${items[index].categoria}',style: teste(avaliado),),
                       SizedBox(height: 5,),
                     ],
                   ),
@@ -158,6 +163,23 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
         );
       },
     );
+  }
+
+
+  TextStyle teste(bool contemNota){
+    if(contemNota){
+      return TextStyle(
+          fontSize: 15,
+          color: Colors.white,
+          fontWeight: FontWeight.w500
+      );
+    }else{
+      return TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.bold
+      );
+    }
+
   }
 
 }

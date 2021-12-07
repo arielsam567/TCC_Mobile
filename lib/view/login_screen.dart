@@ -291,7 +291,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
           suffixIcon: IconButton(
             icon: Icon(
               // Based on passwordVisible state choose the icon
-              !_passwordVisible ? Icons.visibility : Icons.visibility_off,
+              _passwordVisible ? Icons.visibility : Icons.visibility_off,
               color: Theme.of(context).primaryColorDark,
             ),
             onPressed: () {
