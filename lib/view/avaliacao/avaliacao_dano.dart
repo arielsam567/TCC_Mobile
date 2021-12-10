@@ -548,8 +548,10 @@ class _AvaliacaoDanoState extends State<AvaliacaoDano> {
                     bool status = await controller.finaliza(widget.combate);
                     Navigator.of(context).pop();
                     if(status){
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => new ArbitroScreen())
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                          MaterialPageRoute(builder: (context) => new ArbitroScreen()),
+                              (Route<dynamic> route) => false
                       );
                       Fluttertoast.showToast(
                           msg: "Combate avaliado com sucesso",

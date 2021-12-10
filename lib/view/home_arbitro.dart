@@ -122,7 +122,7 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
                 borderRadius: BorderRadius.circular(5.0),
                 onTap: (){
                   Future.delayed(new Duration(milliseconds: 150), () {
-                    Navigator.of(context).push(
+                    Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => new AvaliacaoHits(combateModel: items[index])
                         ));
                   });

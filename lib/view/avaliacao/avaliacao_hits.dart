@@ -75,7 +75,6 @@ class _AvaliacaoHitsState extends State<AvaliacaoHits> {
                     Future.delayed(new Duration(milliseconds: 100), () {
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => new ArbitroScreen()));
-
                     });
                   },
                 ),
