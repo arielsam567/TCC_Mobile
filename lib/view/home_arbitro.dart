@@ -139,14 +139,14 @@ class _ArbitroScreenState extends State<ArbitroScreen> with TickerProviderStateM
                     children: [
                       SizedBox(height: 15,),
                       Text('Competidor 1: ${items[index].nameA}'
-                          '\nEquipe: ${items[index].nameA}',
+                          '\nEquipe: ${items[index].equipeA}',
                         style: teste(avaliado),),
                       SizedBox(height: 5,),
                       Divider(thickness: 1.2,
                           color: avaliado ? Colors.white :  Colors.black ),
                       SizedBox(height: 5,),
                       Text('Competidor 2: ${items[index].nameB}'
-                          '\nEquipe: ${items[index].nameB}',
+                          '\nEquipe: ${items[index].equipeB}',
                         style: teste(avaliado),),
                       Divider(thickness: 1.2,
                           color: avaliado ? Colors.white :  Colors.black
